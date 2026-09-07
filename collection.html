@@ -1,1 +1,127 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Collection — Pompkin</title><link rel="stylesheet" href="style.css"></head><body><main><section class="page-hero"><div class="container"><p class="hero-eyebrow">made for you</p><h1>Collection</h1><p>Physical pieces from Pompkin and friends.</p></div></section><section class="section"><div class="container"><div class="form-card"><div class="form-grid"><div class="form-group"><label>Search</label><input id="search" placeholder="Search products"></div><div class="form-group"><label>Sort</label><select id="sort"><option value="latest">Latest</option><option value="best">Best Selling</option><option value="high">Highest Price</option><option value="low">Lowest Price</option></select></div></div></div><div id="products" class="category-grid" style="margin-top:30px"></div></div></section></main><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="supabase.js"></script><script src="base.js"></script><script src="collection.js"></script></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Collection | Pompkin</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a href="index.html" class="logo">Pompkin</a>
+    <nav class="main-nav" aria-label="Main navigation"><a href="index.html">Home</a><a href="custom.html">Custom</a><a href="premade.html">Premade</a><a href="collection.html" class="active">Collection</a><a href="socials.html">Socials</a></nav>
+    <div class="account-links" data-account-links></div>
+  </header>
+
+  <main>
+    <section class="page-hero page-hero-collection">
+      <div class="page-hero-content"><p class="hero-eyebrow">made for you</p><h1>Collection</h1><p>Physical Pompkin pieces, prints, stickers, keychains, and other things made to be collected.</p></div>
+    </section>
+
+    <section class="section collection-section">
+      <div class="container">
+        <div class="section-heading collection-heading-row">
+          <div><p class="section-label">shop the collection 𐙚</p><h2 class="section-title">A little something to take home.</h2><p class="section-description">Search by product name, author, category, or keywords. Open an item to see its details without creating another product page.</p></div>
+          <button class="basket-button" id="openBasket" type="button">Basket (<span id="basketCount">0</span>)</button>
+        </div>
+
+        <div class="filter-bar">
+          <input id="searchFilter" type="search" placeholder="Search products or keywords..." aria-label="Search products or keywords">
+          <select id="authorFilter" aria-label="Filter by author"><option value="all">All authors</option><option value="allynieva">allynieva</option><option value="avyannahlavelle">avyannahlavelle</option><option value="starjeizing">starjeizing</option><option value="niffany">niffany</option></select>
+          <select id="categoryFilter" aria-label="Filter by category"><option value="all">All categories</option><option value="Pompkin Pack">Pompkin Pack</option><option value="Keychain">Keychain</option><option value="Prints">Prints</option><option value="Stickers">Stickers</option></select>
+          <select id="sortFilter" aria-label="Sort products"><option value="default">Featured</option><option value="best">Best Selling</option><option value="latest">Latest</option><option value="high">Highest Price</option><option value="low">Lowest Price</option></select>
+          <button type="button" class="reset-button" id="resetFilters">Reset filters</button>
+        </div>
+
+        <div class="product-grid" id="productGrid">
+          <article class="product-card" data-id="pompkin-pack" data-name="Allynieva Pompkin Pack" data-author="allynieva" data-category="Pompkin Pack" data-price="249" data-sold="34" data-sold-display="Sold: 34" data-latest="4" data-weight="0" data-status="Pre-order" data-rating="No ratings yet" data-keywords="allynieva pompkin pack merch bundle stickers fanmade cute collection">
+            <span class="product-badge" aria-label="Product status">Sold: 34</span>
+            <button class="product-click-area" type="button">
+              <img class="product-image" src="images/allynieva-pompkin-pack.jpg" alt="Allynieva Pompkin Pack">
+              <div class="product-info"><h3 class="product-name">Allynieva Pompkin Pack</h3><p class="product-meta">allynieva · Pompkin Pack</p><div class="product-bottom"><p class="product-price">₱249</p></div></div>
+            </button>
+          </article>
+
+          <article class="product-card" data-id="acrylic-cd-keychain" data-name="Acrylic CD Album Keychain with NFC" data-author="allynieva" data-category="Keychain" data-price="170" data-sold="0" data-sold-display="🔥" data-latest="3" data-weight="0" data-status="Pre-order" data-rating="No ratings yet" data-keywords="allynieva acrylic cd album keychain nfc music accessory clear charm merch">
+            <span class="product-badge product-badge-fire" aria-label="Popular item">🔥</span>
+            <button class="product-click-area" type="button">
+              <img class="product-image" src="images/acrylic-cd-album-keychain.jpg" alt="Acrylic CD Album Keychain with NFC">
+              <div class="product-info"><h3 class="product-name">Acrylic CD Album Keychain with NFC</h3><p class="product-meta">allynieva · Keychain</p><div class="product-bottom"><p class="product-price">₱170</p></div></div>
+            </button>
+          </article>
+
+          <article class="product-card" data-id="sanlias-print" data-name="SanLias 4R Mini Art Print" data-author="allynieva" data-category="Prints" data-price="70" data-sold="0" data-sold-display="🔥" data-latest="2" data-weight="0" data-status="Pre-order" data-rating="No ratings yet" data-keywords="allynieva sanlias 4r mini art print paper wall art illustration print">
+            <span class="product-badge product-badge-fire" aria-label="Popular item">🔥</span>
+            <button class="product-click-area" type="button">
+              <img class="product-image" src="images/sanlias-4r-mini-art-print.jpg" alt="SanLias 4R Mini Art Print">
+              <div class="product-info"><h3 class="product-name">SanLias 4R Mini Art Print</h3><p class="product-meta">allynieva · Prints</p><div class="product-bottom"><p class="product-price">₱70</p></div></div>
+            </button>
+          </article>
+
+          <article class="product-card" data-id="allynieva-sticker-sheet" data-name="Allynieva Sticker Sheet" data-author="allynieva" data-category="Stickers" data-price="70" data-sold="5" data-sold-display="Sold: 5" data-latest="1" data-weight="0" data-status="Pre-order" data-rating="No ratings yet" data-keywords="allynieva sticker sheet stickers stationery cute merch decals">
+            <span class="product-badge" aria-label="Product status">Sold: 5</span>
+            <button class="product-click-area" type="button">
+              <div class="product-image product-placeholder">STICKER SHEET<br>sample placeholder</div>
+              <div class="product-info"><h3 class="product-name">Allynieva Sticker Sheet</h3><p class="product-meta">allynieva · Stickers</p><div class="product-bottom"><p class="product-price">₱70</p></div></div>
+            </button>
+          </article>
+        </div>
+        <p class="no-results" id="noResults">No products matched your filters.</p>
+      </div>
+    </section>
+  </main>
+
+  <div class="modal-backdrop" id="productModal" aria-hidden="true">
+    <div class="product-modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <button class="modal-close" id="closeProductModal" type="button" aria-label="Close">×</button>
+      <div class="modal-image-wrap"><img id="modalImage" src="" alt=""><div id="modalPlaceholder" class="product-placeholder modal-placeholder">PRODUCT<br>PREVIEW</div></div>
+      <div class="modal-content">
+        <p class="section-label" id="modalCategory"></p>
+        <h2 id="modalTitle"></h2>
+        <p class="modal-price" id="modalPrice"></p>
+        <div class="detail-grid">
+          <div><span>Status</span><strong id="modalStatus"></strong></div>
+          <div><span>Rating</span><strong id="modalRating"></strong></div>
+        </div>
+        <p id="modalDescription" class="modal-description"></p>
+        <section class="buyer-ratings" aria-label="Buyer ratings and photos">
+          <div class="buyer-ratings-heading"><h3>Buyer ratings</h3><p>Customer photos and reviews will go here.</p></div>
+          <div class="rating-summary"><span class="rating-stars">★★★★★</span><strong>5.0</strong><span>placeholder rating</span></div>
+          <div class="rating-gallery">
+            <article class="rating-card"><div class="rating-photo">BUYER PHOTO<br>placeholder</div><p>“Loved how cute it looked in person.”<br>— buyer review</p></article>
+            <article class="rating-card"><div class="rating-photo">BUYER PHOTO<br>placeholder</div><p>“A lovely little addition to my collection.”<br>— buyer review</p></article>
+            <article class="rating-card"><div class="rating-photo">BUYER PHOTO<br>placeholder</div><p>“Packaging and artwork were adorable.”<br>— buyer review</p></article>
+          </div>
+        </section>
+        <p class="shipping-note">Estimated shipping will be calculated for your order based on the items in your basket.</p>
+        <div class="modal-quantity" aria-label="Choose quantity">
+          <span>ADD EXTRA PIECES</span>
+          <div class="quantity-control modal-quantity-control">
+            <button id="modalQuantityMinus" type="button" aria-label="Decrease quantity">−</button>
+            <span id="modalQuantity">1</span>
+            <button id="modalQuantityPlus" type="button" aria-label="Increase quantity">+</button>
+          </div>
+        </div>
+        <button id="addToBasket" class="button button-orange" type="button">Add to Basket</button>
+      </div>
+    </div>
+  </div>
+
+  <aside class="basket-drawer" id="basketDrawer" aria-hidden="true">
+    <div class="basket-header"><div><p class="section-label">your basket 𐙚</p><h2>Basket</h2></div><div class="basket-header-actions"><button id="addMore" class="basket-add-more" type="button">Add more</button><button id="closeBasket" class="modal-close" type="button" aria-label="Close basket">×</button></div></div>
+    <div id="basketItems" class="basket-items"><p class="basket-empty">Your basket is empty.</p></div>
+    <div class="basket-summary">
+      <div><span>Items</span><strong id="basketSubtotal">₱0</strong></div>
+      <div><span>Estimated shipping</span><strong id="shippingEstimate">Calculated at checkout</strong></div>
+      <div class="basket-total"><span>Estimated total</span><strong id="basketTotal">₱0</strong></div>
+      <button type="button" class="button button-orange basket-checkout" id="checkoutButton">Continue to checkout</button>
+    </div>
+  </aside>
+
+  <footer class="site-footer"><div class="container"><div class="footer-content"><div class="footer-brand"><a href="index.html" class="logo">Pompkin</a><p>art in all shapes</p></div><div class="footer-links"><a href="index.html">Home</a><a href="custom.html">Custom</a><a href="premade.html">Premade</a><a href="collection.html">Collection</a><a href="socials.html">Socials</a></div></div><div class="footer-bottom"><p>© 2026 Pompkin. All rights reserved. 𐙚 art in all shapes</p></div></div></footer>
+
+  <script type="module" src="supabase.js"></script>
+<script type="module" src="collection.js"></script>
+
+</body>
+</html>

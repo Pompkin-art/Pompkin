@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout | Pompkin</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a href="index.html" class="logo">Pompkin</a>
+    <nav class="main-nav" aria-label="Main navigation"><a href="index.html">Home</a><a href="custom.html">Custom</a><a href="premade.html">Premade</a><a href="collection.html" class="active">Collection</a><a href="socials.html">Socials</a></nav>
+    <div class="account-links" data-account-links></div>
+  </header>
+
+  <main class="section checkout-page">
+    <div class="container">
+      <div class="section-heading"><p class="section-label">almost yours 𐙚</p><h1 class="section-title">Checkout</h1><p class="section-description">Review your basket and prepare your order. Payment and final order submission will be connected to Pompkin's checkout system next.</p></div>
+      <div class="checkout-grid">
+        <section class="checkout-card">
+      <div id="checkoutProfileGate" class="checkout-profile-gate" hidden></div>
+          <h2>Your items</h2>
+          <div id="checkoutItems"></div>
+        </section>
+        <aside class="checkout-card checkout-summary-card">
+          <h2>Order summary</h2>
+          <div class="checkout-summary-row"><span>Items</span><strong id="checkoutSubtotal">₱0</strong></div>
+          <div class="checkout-summary-row"><span>Shipping</span><strong>Calculated later</strong></div>
+          <div class="tip-box">
+            <p class="section-label">optional 𐙚</p>
+            <h3>Buy me a coffee?</h3>
+            <p>If you'd like to leave a little extra support for Pompkin, you can add a tip.</p>
+            <div class="tip-options" role="group" aria-label="Choose a tip">
+              <button type="button" class="tip-option is-selected" data-tip="0">No thanks</button>
+              <button type="button" class="tip-option" data-tip="50">₱50</button>
+              <button type="button" class="tip-option" data-tip="100">₱100</button>
+              <button type="button" class="tip-option" data-tip="150">₱150</button>
+            </div>
+          </div>
+          <div class="checkout-summary-row"><span>Buy me a coffee</span><strong id="checkoutTip">₱0</strong></div>
+          <div class="checkout-summary-total"><span>Estimated total</span><strong id="checkoutTotal">₱0</strong></div>
+          <button type="button" class="button button-orange" id="placeOrderButton" disabled>Place Order — coming next</button>
+          <a href="collection.html" class="button button-outline">Back to Collection</a>
+        </aside>
+      </div>
+    </div>
+  <button id="checkoutButton" class="button button-orange" type="button">Continue with order</button>
+  </main>
+
+  <footer class="site-footer"><div class="container"><div class="footer-content"><div class="footer-brand"><a href="index.html" class="logo">Pompkin</a><p>art in all shapes</p></div><div class="footer-links"><a href="index.html">Home</a><a href="custom.html">Custom</a><a href="premade.html">Premade</a><a href="collection.html">Collection</a><a href="socials.html">Socials</a></div></div><div class="footer-bottom"><p>© 2026 Pompkin. All rights reserved. 𐙚 art in all shapes</p></div></div></footer>
+
+  <script type="module" src="checkout.js"></script>
+</body>
+</html>

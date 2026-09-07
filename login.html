@@ -1,1 +1,45 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Log In — Pompkin</title><link rel="stylesheet" href="style.css"></head><body><main><section class="page-hero"><div class="container"><p class="hero-eyebrow">welcome back</p><h1>Log In</h1></div></section><section class="section"><div class="container" style="max-width:620px"><form id="loginForm" class="form-card"><div class="form-group"><label>Username or email</label><input name="identity" required></div><div class="form-group" style="margin-top:15px"><label>Password</label><input name="password" type="password" required></div><button class="button button-orange" style="margin-top:20px" type="submit">Log In</button><button class="button button-outline" style="margin-top:12px;width:100%" id="google" type="button">Continue with Google</button><p id="msg"></p><p style="margin-top:15px">No account? <a href="signup.html">Create one</a></p></form></div></section></main><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="supabase.js"></script><script src="base.js"></script><script src="login.js"></script></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Log In | Pompkin</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a href="index.html" class="logo">Pompkin</a>
+    <nav class="main-nav" aria-label="Main navigation"><a href="index.html">Home</a><a href="custom.html">Custom</a><a href="premade.html">Premade</a><a href="collection.html">Collection</a><a href="socials.html">Socials</a></nav>
+    <div class="account-links" data-account-links></div>
+  </header>
+
+  <main class="auth-page">
+    <section class="auth-card">
+      <p class="section-label auth-label">welcome back 𐙚</p>
+      <h1>Log in to Pompkin</h1>
+      <p>Use Google or your Pompkin username and password. Your session can stay signed in when you come back.</p>
+
+      <button type="button" class="google-button" data-google-login>Continue with Google</button>
+      <div class="auth-divider"><span>or</span></div>
+
+      <div class="saved-login" data-saved-session hidden></div>
+      <form data-login-form>
+        <div class="form-group"><label for="username">Username</label><input id="username" name="username" type="text" autocomplete="username" required></div>
+        <p class="auth-helper">Log in with the username you created for your Pompkin account.</p>
+        <div class="form-group"><label for="password">Password</label><input id="password" name="password" type="password" autocomplete="current-password" required></div>
+        <div class="remember-row">
+          <label class="remember-check"><input type="checkbox" id="remember-login" name="remember-login"> Remember my username on this device</label>
+        </div>
+        <button type="submit" class="auth-submit">Log In</button>
+      </form>
+
+      <p id="authMessage" class="auth-message" hidden></p>
+      <p class="auth-switch">Don't have an account? <a href="signup.html">Create Account</a></p>
+    </section>
+  </main>
+
+  <footer class="site-footer"><div class="container"><div class="footer-content"><div class="footer-brand"><a href="index.html" class="logo">Pompkin</a><p>art in all shapes</p></div><div class="footer-links"><a href="index.html">Home</a><a href="custom.html">Custom</a><a href="premade.html">Premade</a><a href="collection.html">Collection</a><a href="socials.html">Socials</a></div></div><div class="footer-bottom"><p>© 2026 Pompkin. All rights reserved. 𐙚 art in all shapes</p></div></div></footer>
+
+  <script type="module" src="supabase.js"></script>
+</body>
+</html>

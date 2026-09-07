@@ -1,1 +1,178 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Custom — Pompkin</title><link rel="stylesheet" href="style.css"></head><body><main><section class="page-hero"><div class="container"><p class="hero-eyebrow">just for you</p><h1>Custom</h1><p>Personalized commissions made around your idea.</p></div></section><section class="section"><div class="container"><div class="category-grid"><article class="service-card"><h2>Custom Book Cover</h2><p>Original cover artwork for your story.</p><strong>₱___</strong></article><article class="service-card"><h2>Character Illustration</h2><p>A character designed around your concept.</p><strong>₱___</strong></article><article class="service-card"><h2>Flyers &amp; Posters</h2><p>Artwork for launches, events, and announcements.</p><strong>₱___</strong></article><article class="service-card"><h2>Custom Typography Logo</h2><p>Handmade lettering for your brand or project.</p><strong>₱___</strong></article></div><div class="form-card" style="margin-top:30px"><h2>Book a custom commission</h2><p>Sign in first so your request can be attached to your account.</p><form id="customForm" class="form-grid"><div class="form-group"><label>Author's name</label><input name="author" required></div><div class="form-group"><label>Genre</label><input name="genre"></div><div class="form-group"><label>Project / title</label><input name="title" required></div><div class="form-group"><label>Deadline</label><input name="deadline" type="date"></div><div class="form-group"><label>Format / size</label><input name="format"></div><div class="form-group full"><label>Description</label><textarea name="description"></textarea></div><div class="form-group full"><label>Reference links / inspiration</label><textarea name="references"></textarea></div><div class="form-group full"><button class="button button-orange" type="submit">Book Now</button></div></form><p id="customMsg"></p></div></div></section></main><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="supabase.js"></script><script src="base.js"></script><script src="custom.js"></script></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Custom | Pompkin</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a href="index.html" class="logo">Pompkin</a>
+    <nav class="main-nav" aria-label="Main navigation">
+      <a href="index.html">Home</a><a href="custom.html" class="active">Custom</a><a href="premade.html">Premade</a><a href="collection.html">Collection</a><a href="socials.html">Socials</a>
+    </nav>
+    <div class="account-links" data-account-links></div>
+  </header>
+
+  <main>
+    <section class="page-hero page-hero-custom">
+      <div class="page-hero-content">
+        <p class="hero-eyebrow">just for you</p>
+        <h1>Custom</h1>
+        <p>Personalized artwork made around your ideas, stories, projects, and creative needs.</p>
+      </div>
+      
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="section-heading">
+          <p class="section-label">custom creations 𐙚</p>
+          <h2 class="section-title">Something made especially for you.</h2>
+          <p class="section-description">From book covers and character illustrations to promotional materials and custom typography, Pompkin can help bring your idea to life.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-alt" id="services">
+      <div class="container">
+        <div class="custom-service" data-service="Custom Book Cover">
+          <div class="custom-service-gallery">
+            <div class="custom-gallery-item tall"><div class="placeholder-content"><span>BOOK COVER</span><small>sample 01</small></div></div>
+            <div class="custom-gallery-item tall"><div class="placeholder-content"><span>BOOK COVER</span><small>sample 02</small></div></div>
+            <div class="custom-gallery-item tall"><div class="placeholder-content"><span>BOOK COVER</span><small>sample 03</small></div></div>
+          </div>
+          <div class="custom-service-content">
+            <h2>Custom Book Cover</h2>
+            <p>Give your story a cover that feels like it belongs to your world. Custom book covers are designed around your story, characters, mood, and visual direction.</p>
+            <ul class="custom-details"><li>Personalized cover design</li><li>Designed around your story</li><li>Custom typography and layout</li><li>High-quality final artwork</li></ul>
+            <p class="custom-price">Starting price: <strong>₱___</strong></p>
+            <button type="button" class="button button-orange custom-book-button" data-book-now="Custom Book Cover">Book Now</button>
+          </div>
+        </div>
+
+        <div class="custom-service custom-service-reverse" data-service="Character Illustration">
+          <div class="custom-service-gallery">
+            <div class="custom-gallery-item"><div class="placeholder-content"><span>CHARACTER</span><small>sample 01</small></div></div>
+            <div class="custom-gallery-item"><div class="placeholder-content"><span>CHARACTER</span><small>sample 02</small></div></div>
+            <div class="custom-gallery-item"><div class="placeholder-content"><span>CHARACTER</span><small>sample 03</small></div></div>
+          </div>
+          <div class="custom-service-content">
+            <h2>Character Illustration</h2>
+            <p>Bring your original characters to life with a personalized illustration made according to your preferred style, pose, and concept.</p>
+            <ul class="custom-details"><li>Original character artwork</li><li>Custom pose and expression</li><li>Personalized colors and details</li><li>Digital final artwork</li></ul>
+            <p class="custom-price">Starting price: <strong>₱___</strong></p>
+            <button type="button" class="button button-orange custom-book-button" data-book-now="Character Illustration">Book Now</button>
+          </div>
+        </div>
+
+        <div class="custom-service" data-service="Flyers & Posters">
+          <div class="custom-service-gallery">
+            <div class="custom-gallery-item wide"><div class="placeholder-content"><span>FLYER / POSTER</span><small>A4 sample 01</small></div></div>
+            <div class="custom-gallery-item wide"><div class="placeholder-content"><span>FLYER / POSTER</span><small>A4 sample 02</small></div></div>
+            <div class="custom-gallery-item wide"><div class="placeholder-content"><span>FLYER / POSTER</span><small>A4 sample 03</small></div></div>
+          </div>
+          <div class="custom-service-content">
+            <h2>Flyers &amp; Posters</h2>
+            <p>Need artwork for an event, launch, announcement, book release, or special project? Get a custom flyer or poster designed around your message.</p>
+            <ul class="custom-details"><li>Custom layout and composition</li><li>Personalized typography</li><li>Designed for your project</li><li>Digital-ready final artwork</li></ul>
+            <p class="custom-price">Starting price: <strong>₱___</strong></p>
+            <button type="button" class="button button-orange custom-book-button" data-book-now="Flyers & Posters">Book Now</button>
+          </div>
+        </div>
+
+        <div class="custom-service custom-service-reverse" data-service="Custom Typography Logo">
+          <div class="custom-service-gallery">
+            <div class="custom-gallery-item"><div class="placeholder-content"><span>TYPOGRAPHY LOGO</span><small>sample 01</small></div></div>
+            <div class="custom-gallery-item"><div class="placeholder-content"><span>TYPOGRAPHY LOGO</span><small>sample 02</small></div></div>
+            <div class="custom-gallery-item"><div class="placeholder-content"><span>TYPOGRAPHY LOGO</span><small>sample 03</small></div></div>
+          </div>
+          <div class="custom-service-content">
+            <h2>Custom Typography Logo</h2>
+            <p>Give your project a unique identity with custom lettering and typography created specifically for your brand, book, event, or creative project.</p>
+            <ul class="custom-details"><li>Custom lettering</li><li>Personalized typography style</li><li>Color and layout customization</li><li>Digital final artwork</li></ul>
+            <p class="custom-price">Starting price: <strong>₱___</strong></p>
+            <button type="button" class="button button-orange custom-book-button" data-book-now="Custom Typography Logo">Book Now</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="feedback-section">
+      <div class="container"><div class="section-heading">
+        <p class="section-label">ready to create? 𐙚</p>
+        <h2 class="section-title">Let's make something together.</h2>
+        <p class="section-description">Have an idea that doesn't fit one of the categories above? That's okay. Tell Pompkin what you have in mind.</p>
+        <button type="button" class="button button-white custom-book-button" data-book-now="Other / Not sure yet">Book a Custom</button>
+      </div></div>
+    </section>
+
+    <div class="custom-modal" data-custom-modal hidden>
+      <div class="custom-modal-panel" role="dialog" aria-modal="true" aria-labelledby="custom-form-title">
+        <div class="custom-modal-header">
+          <div>
+            <p class="section-label">book a custom 𐙚</p>
+            <h2 id="custom-form-title">Tell me what you're making.</h2>
+            <p>Your draft is automatically saved on this device as you type.</p>
+          </div>
+          <button type="button" class="custom-modal-close" data-close-custom aria-label="Close">×</button>
+        </div>
+        <p class="custom-draft-note" data-draft-note>Draft saved automatically.</p>
+        <form data-custom-form>
+          <div class="custom-form-grid">
+            <div class="custom-form-group">
+              <label for="custom-service">Service</label>
+              <select id="custom-service" name="service" required>
+                <option>Custom Book Cover</option>
+                <option>Character Illustration</option>
+                <option>Flyers &amp; Posters</option>
+                <option>Custom Typography Logo</option>
+                <option>Other / Not sure yet</option>
+              </select>
+            </div>
+            <div class="custom-form-group">
+              <label for="custom-project">Project / title</label>
+              <input id="custom-project" name="project" type="text" placeholder="e.g. my novel cover" required>
+            </div>
+            <div class="custom-form-group">
+              <label for="custom-author">Author's name</label>
+              <input id="custom-author" name="author" type="text" placeholder="Author, creator, or client name">
+            </div>
+            <div class="custom-form-group">
+              <label for="custom-genre">Genre</label>
+              <input id="custom-genre" name="genre" type="text" placeholder="e.g. fantasy, romance, thriller">
+            </div>
+            <div class="custom-form-group full">
+              <label for="custom-description">Tell me about the project</label>
+              <textarea id="custom-description" name="description" rows="5" placeholder="Tell me what you're commissioning, the story or concept, what you want it to look like, characters, text, colors, mood, dimensions, and any other important details." required></textarea>
+            </div>
+            <div class="custom-form-group">
+              <label for="custom-deadline">Preferred deadline</label>
+              <input id="custom-deadline" name="deadline" type="date">
+            </div>
+            <div class="custom-form-group">
+              <label for="custom-format">Format / size</label>
+              <input id="custom-format" name="format" type="text" placeholder="e.g. 2048 × 3200 px, A4, square">
+            </div>
+            <div class="custom-form-group full">
+              <label for="custom-reference">Reference links / inspiration</label>
+              <textarea id="custom-reference" name="references" placeholder="Paste links to references, moodboards, inspiration, or existing materials. Optional."></textarea>
+            </div>
+          </div>
+          <div class="custom-form-actions">
+            <button type="submit" class="button button-orange">Save Booking Request</button>
+            <button type="button" class="custom-clear-draft" data-clear-custom>Clear saved draft</button>
+          </div>
+          <p class="custom-submit-note">Your account already has your name and email, so you don't need to enter them again.</p>
+          <p id="customFormMessage" class="auth-message" hidden></p>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer"><div class="container"><div class="footer-content"><div class="footer-brand"><a href="index.html" class="logo">Pompkin</a><p>art in all shapes</p></div><div class="footer-links"><a href="index.html">Home</a><a href="custom.html">Custom</a><a href="premade.html">Premade</a><a href="collection.html">Collection</a><a href="socials.html">Socials</a></div></div><div class="footer-bottom"><p>© 2026 Pompkin. All rights reserved. 𐙚 art in all shapes</p></div></div></footer>
+  <script type="module" src="supabase.js"></script>
+  <script type="module" src="custom.js"></script>
+</body>
+</html>

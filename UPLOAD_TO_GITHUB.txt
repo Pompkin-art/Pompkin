@@ -1,0 +1,14 @@
+POMPKIN GITHUB UPDATE
+
+This package contains the current website plus the private Admin Orders page.
+
+Replace the website files in the Pompkin GitHub repository with the files in this folder.
+Do not upload this folder itself as a nested folder; upload its contents.
+
+Main new page:
+- admin-orders.html
+- admin-orders.js
+
+Admin dashboard now has an Orders button.
+
+Supabase SQL is NOT included in this update because the backend setup is already complete.

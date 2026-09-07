@@ -1,1 +1,43 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Admin Orders — Pompkin</title><link rel="stylesheet" href="style.css"></head><body><main><section class="page-hero"><div class="container"><p class="hero-eyebrow">private area</p><h1>Orders</h1></div></section><section class="section"><div class="container"><div id="adminOrders"></div></div></section></main><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="supabase.js"></script><script src="base.js"></script><script src="admin-orders.js"></script></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pompkin Orders</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="admin-page">
+  <main class="admin-orders-shell">
+    <header class="admin-orders-topbar">
+      <div>
+        <p class="section-label">private admin 𐙚</p>
+        <h1>Pompkin Orders</h1>
+        <p>Review incoming orders, accept them, enter the actual J&amp;T pouch fee, and verify payments.</p>
+      </div>
+      <div class="admin-actions">
+        <a class="button button-cream" href="admin.html">Dashboard</a>
+        <a class="button button-orange" href="index.html">Back to Pompkin</a>
+      </div>
+    </header>
+
+    <section class="admin-orders-toolbar">
+      <div class="admin-order-filters">
+        <button class="admin-order-filter active" data-filter="all" type="button">All</button>
+        <button class="admin-order-filter" data-filter="pending" type="button">Pending</button>
+        <button class="admin-order-filter" data-filter="accepted" type="button">Accepted</button>
+        <button class="admin-order-filter" data-filter="paid" type="button">Paid</button>
+        <button class="admin-order-filter" data-filter="completed" type="button">Completed</button>
+      </div>
+      <button id="refreshOrders" class="button button-orange" type="button">Refresh</button>
+    </section>
+
+    <div id="ordersMessage" class="admin-orders-message" hidden></div>
+    <section id="ordersList" class="admin-orders-list">
+      <div class="admin-orders-loading">Loading orders...</div>
+    </section>
+  </main>
+
+  <script type="module" src="supabase.js"></script>
+  <script type="module" src="admin-orders.js"></script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+POMPKIN UPDATED SITE SETUP
+
+1. Before using the new Profile / Checkout address features, run:
+   supabase_customer_updates.sql
+   in Supabase SQL Editor.
+
+2. This update adds:
+   - barangay to profiles
+   - multiple saved delivery addresses
+   - primary address selection
+   - barangay to orders
+   - J&T tracking number / tracking URL fields
+
+3. The website now:
+   - shows profile information first, with Edit Profile instead of opening directly in edit mode
+   - lets customers change only the information they want
+   - lets customers save multiple addresses and choose a primary address
+   - automatically uses the primary address at checkout
+   - lets customers choose another saved address at checkout
+   - no longer asks customers to type their address repeatedly
+   - moves order confirmation to order-confirmation.html
+   - adds order-status.html for shipping/payment status and J&T tracking
+   - gives the admin a J&T tracking-number field
+   - links customer tracking to the official J&T Philippines tracking page
+   - gives Premade Book Covers, Character Illustrations, and Character Icons their own pages
+   - tightens the Collection filters, reviews, footer, and other mobile layouts
+
+4. The checkout no longer contains the voucher UI. Vouchers remain skipped in the backend as requested.

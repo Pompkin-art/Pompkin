@@ -1,1 +1,21 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Checkout — Pompkin</title><link rel="stylesheet" href="style.css"></head><body><main><section class="page-hero"><div class="container"><p class="hero-eyebrow">almost there</p><h1>Checkout</h1><p>Choose a saved shipping address. Shipping is confirmed after we review the order.</p></div></section><section class="section"><div class="container"><div class="form-card"><h2>Your basket</h2><div id="basket"></div><div class="form-group" style="margin-top:20px"><label>Shipping address</label><select id="addressSelect"></select></div><div class="form-group" style="margin-top:15px"><label>Buy me a coffee — optional</label><input id="coffee" type="number" min="0" step="1" value="0"></div><div id="total" class="notice"></div><button id="placeOrder" class="button button-orange">Place Order</button><p id="msg"></p></div></div></section></main><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="supabase.js"></script><script src="base.js"></script><script src="order-checkout.js"></script></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Checkout | Pompkin</title><link rel="stylesheet" href="style.css"></head>
+<body class="dedicated-checkout-body">
+<header class="checkout-header"><div class="container checkout-header-inner"><a href="index.html" class="logo">Pompkin</a><a href="collection.html" class="checkout-back">Back to basket</a></div></header>
+<main class="dedicated-checkout"><div class="container">
+<div class="checkout-intro"><p class="section-label">almost yours 𐙚</p><h1 class="section-title">Checkout</h1><p>Your saved information is used here so you don't have to type your address again.</p></div>
+<div class="dedicated-checkout-grid">
+<section class="dedicated-checkout-card checkout-main-card">
+<div class="checkout-card-heading"><p class="section-label">delivery details 𐙚</p><h2>Where should we send it?</h2><p>Your primary saved address is selected automatically. You can choose another saved address if you have more than one. The recipient name comes from the address you select.</p></div>
+<div id="addressChooser" class="checkout-address-chooser"></div>
+<div class="checkout-no-address" id="noAddress" hidden><strong>No complete delivery address is saved yet.</strong><p>Add one from your profile first, then come back here.</p><a class="button button-outline" href="profile.html">Manage addresses</a></div>
+<div class="checkout-profile-preview" id="checkoutProfilePreview" hidden></div>
+<div class="checkout-divider"></div>
+<div class="coffee-support"><div class="coffee-copy"><p class="section-label">optional 𐙚</p><h3>Buy me a coffee?</h3><p>Optional support. Enter any amount you'd like to leave.</p></div><label class="coffee-amount"><span>₱</span><input id="tipAmount" type="number" min="0" step="1" inputmode="numeric" placeholder="" aria-label="Optional coffee support amount"></label></div>
+<p id="checkoutMessage" class="checkout-message" hidden></p>
+</section>
+<aside class="dedicated-checkout-card order-summary"><div class="checkout-card-heading"><p class="section-label">your order 𐙚</p><h2>Order summary</h2></div><div id="checkoutItems" class="dedicated-checkout-items"></div><div class="checkout-summary-row"><span>Items</span><strong id="checkoutSubtotal">₱0</strong></div><div class="checkout-summary-row"><span>Shipping</span><strong id="checkoutShipping">To be calculated</strong></div><div class="checkout-summary-row"><span>Extra support</span><strong id="checkoutTip">₱0</strong></div><div class="checkout-summary-total"><span>Total</span><strong id="checkoutTotal">To be confirmed</strong></div><button type="button" class="button button-orange checkout-place-button" id="checkoutButton">Continue with order</button><p class="checkout-small-note">Pompkin will review the order and finalize shipping before payment.</p></aside>
+</div></div></main>
+<script type="module" src="order-checkout.js"></script>
+</body></html>

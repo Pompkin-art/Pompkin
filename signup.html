@@ -1,1 +1,53 @@
-<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Create Account — Pompkin</title><link rel="stylesheet" href="style.css"></head><body><main><section class="page-hero"><div class="container"><p class="hero-eyebrow">make your space</p><h1>Create Account</h1></div></section><section class="section"><div class="container" style="max-width:700px"><form id="signupForm" class="form-card"><div class="form-grid"><div class="form-group"><label>Full name</label><input name="name" required></div><div class="form-group"><label>Username</label><input name="username" required></div><div class="form-group"><label>Email</label><input name="email" type="email" required></div><div class="form-group"><label>Mobile number (optional)</label><input name="mobile"></div><div class="form-group full"><label>Password</label><input name="password" type="password" required><small>Use at least 8 characters, including uppercase, lowercase, and a number.</small></div></div><button class="button button-orange" style="margin-top:20px" type="submit">Create Account</button><p id="msg"></p></form></div></section></main><script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script src="supabase.js"></script><script src="base.js"></script><script src="signup.js"></script></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Account | Pompkin</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="site-header">
+    <a href="index.html" class="logo">Pompkin</a>
+    <nav class="main-nav" aria-label="Main navigation"><a href="index.html">Home</a><a href="custom.html">Custom</a><a href="premade.html">Premade</a><a href="collection.html">Collection</a><a href="socials.html">Socials</a></nav>
+    <div class="account-links" data-account-links></div>
+  </header>
+
+  <main class="auth-page">
+    <section class="auth-card">
+      <p class="section-label auth-label">join Pompkin 𐙚</p>
+      <h1>Create your account</h1>
+      <p>Create an account with Google or with your email and password. Your account can be remembered when you return.</p>
+
+      <button type="button" class="google-button" data-google-login>Continue with Google</button>
+      <div class="auth-divider"><span>or</span></div>
+
+      <form data-signup-form>
+        <div class="form-group"><label for="username">Username</label><input id="username" name="username" type="text" autocomplete="username" minlength="3" maxlength="24" pattern="[A-Za-z0-9_]+" required></div>
+        <p class="auth-helper">Use 3–24 letters, numbers, or underscores. This is the username you’ll use to log in.</p>
+        <div class="form-group"><label for="name">Name</label><input id="name" name="name" type="text" autocomplete="name" required></div>
+        <div class="form-group"><label for="email">Gmail / Email</label><input id="email" name="email" type="email" autocomplete="email" required></div>
+        <div class="form-group"><label for="password">Password</label><input id="password" name="password" type="password" autocomplete="new-password" minlength="8" required></div>
+        <div class="password-requirements" data-password-requirements aria-live="polite">
+          <strong>Password requirements</strong>
+          <ul class="password-checklist">
+            <li data-password-check="length"><span class="password-check-icon" aria-hidden="true">✓</span><span>At least 8 characters</span></li>
+            <li data-password-check="uppercase"><span class="password-check-icon" aria-hidden="true">✓</span><span>At least 1 uppercase letter</span></li>
+            <li data-password-check="number"><span class="password-check-icon" aria-hidden="true">✓</span><span>At least 1 number</span></li>
+            <li data-password-check="special"><span class="password-check-icon" aria-hidden="true">✓</span><span>At least 1 special character</span></li>
+          </ul>
+        </div>
+        <div class="form-group"><label for="confirm-password">Confirm Password</label><input id="confirm-password" name="confirm-password" type="password" autocomplete="new-password" minlength="8" required></div>
+        <button type="submit" class="auth-submit">Create Account</button>
+      </form>
+
+      <p id="authMessage" class="auth-message" hidden></p>
+      <p class="auth-switch">Already have an account? <a href="login.html">Log In</a></p>
+    </section>
+  </main>
+
+  <footer class="site-footer"><div class="container"><div class="footer-content"><div class="footer-brand"><a href="index.html" class="logo">Pompkin</a><p>art in all shapes</p></div><div class="footer-links"><a href="index.html">Home</a><a href="custom.html">Custom</a><a href="premade.html">Premade</a><a href="collection.html">Collection</a><a href="socials.html">Socials</a></div></div><div class="footer-bottom"><p>© 2026 Pompkin. All rights reserved. 𐙚 art in all shapes</p></div></div></footer>
+
+  <script type="module" src="supabase.js"></script>
+</body>
+</html>
