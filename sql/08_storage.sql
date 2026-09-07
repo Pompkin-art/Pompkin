@@ -1,0 +1,3 @@
+-- Create these buckets in Supabase Storage: avatars, product-images, review-photos, payment-proofs.
+-- Public read is recommended for product/review images. Avatars may be public if profile pictures are intended to be visible.
+-- Restrict uploads to authenticated users and validate paths in Storage policies.
