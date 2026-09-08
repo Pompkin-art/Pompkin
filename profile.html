@@ -10,7 +10,7 @@
   <header class="site-header">
     <a href="index.html" class="logo">Pompkin</a>
     <nav class="main-nav" aria-label="Main navigation">
-      <a href="index.html">Home</a><a href="custom.html">Custom</a><a href="premade.html">Premade</a><a href="collection.html">Collection</a><a href="socials.html">Socials</a>
+      <a href="index.html">Home</a><a href="custom.html">Custom</a><a href="premade.html">Premade</a><a href="collection.html">Collection</a><a href="bids.html">Bids</a><a href="socials.html">Socials</a>
     </nav>
     <div class="account-links" data-account-links></div>
   </header>
@@ -84,10 +84,8 @@
           <form id="addressForm">
             <input id="addressId" type="hidden">
             <div class="profile-form-grid"><div class="form-group"><label for="recipientName">Recipient name</label><input id="recipientName" placeholder="Who should receive this order?" required></div><div class="form-group"><label for="addressLabel">Address label</label><input id="addressLabel" placeholder="Home, Work, etc." required></div></div>
-            <div class="profile-form-grid"><div class="form-group"><label for="addressLine1">House / Unit & Street</label><input id="addressLine1" required></div><div class="form-group"><label for="addressLine2">Additional details</label><input id="addressLine2" placeholder="Building, subdivision, landmark (optional)"></div></div>
-            <div class="profile-form-grid"><div class="form-group"><label for="barangay">Barangay</label><input id="barangay" required></div></div>
-            <div class="profile-form-grid"><div class="form-group"><label for="city">City / Municipality</label><input id="city" required></div><div class="form-group"><label for="province">Province</label><input id="province" required></div></div>
-            <div class="profile-form-grid"><div class="form-group"><label for="postalCode">Postal Code</label><input id="postalCode" inputmode="numeric" required></div><div class="form-group"><label for="country">Country</label><input id="country" value="Philippines" required></div></div>
+            <div class="form-group"><label for="addressMobile">Mobile number</label><input id="addressMobile" type="tel" inputmode="tel" placeholder="09XXXXXXXXX" required></div>
+            <div class="form-group"><label for="fullAddress">Full shipping address</label><textarea id="fullAddress" rows="5" placeholder="House / unit, street, barangay, city / municipality, province, postal code, country" required></textarea></div>
             <label class="address-primary-check"><input id="isPrimary" type="checkbox"> Make this my primary address</label>
             <button class="button button-orange" type="submit">Save address</button>
             <p id="addressFormMessage" class="auth-message" hidden></p>
@@ -99,7 +97,7 @@
     </div>
   </main>
 
-  <footer class="site-footer"><div class="container"><div class="footer-content"><div class="footer-brand"><a href="index.html" class="logo">Pompkin</a><p>art in all shapes</p></div><div class="footer-links"><a href="index.html">Home</a><a href="custom.html">Custom</a><a href="premade.html">Premade</a><a href="collection.html">Collection</a><a href="socials.html">Socials</a></div></div><div class="footer-bottom"><p>© 2026 Pompkin. All rights reserved. 𐙚 art in all shapes</p></div></div></footer>
+  <footer class="site-footer"><div class="container"><div class="footer-content"><div class="footer-brand"><a href="index.html" class="logo">Pompkin</a><p>art in all shapes</p></div><div class="footer-links"><a href="index.html">Home</a><a href="custom.html">Custom</a><a href="premade.html">Premade</a><a href="collection.html">Collection</a><a href="bids.html">Bids</a><a href="socials.html">Socials</a></div></div><div class="footer-bottom"><p>© 2026 Pompkin. All rights reserved. 𐙚 art in all shapes</p></div></div></footer>
   <script type="module" src="supabase.js"></script>
   <script type="module" src="profile.js"></script>
 </body>

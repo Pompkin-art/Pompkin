@@ -1,0 +1,33 @@
+POMPKIN — COMPLETE SITE + ART BIDS GALLERY
+
+This ZIP is based on the current Pompkin site.
+
+New:
+- Art Bids page with active auctions.
+- Previous Bids archive underneath active auctions.
+- Like button for every artwork.
+- Public comments showing username only.
+- Secure bid placement through Supabase RPC.
+- Admin auction page remains included.
+
+SUPABASE
+Run ONLY this SQL file in Supabase SQL Editor:
+pompkin_additions_profile_and_bids.sql
+
+It is an additive migration. It does not rebuild the whole database.
+
+GITHUB
+Replace the files in your existing Pompkin GitHub repository with the files in this ZIP.
+Do not create a new repository.
+
+The Bids page is:
+bids.html
+
+The home page and navigation already include Bids.
+
+LIKES + COMMENTS
+Users must be logged in to like or comment.
+Comments display the public username, not private full name/email/mobile.
+
+PREVIOUS BIDS
+When an auction is marked "ended" in the admin auction page, it appears in the Previous Bids gallery.
