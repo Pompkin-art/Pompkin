@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bids | Pompkin</title>
+  <link rel="stylesheet" href="style.css">
+
+  <style>
+    .bids-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 28px;
+      margin-top: 40px;
+    }
+
+    .bid-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      border-radius: 28px 12px 28px 12px;
+    }
+
+    .bid-card-image {
+      aspect-ratio: 1 / 1;
+      background: var(--cream-dark);
+      overflow: hidden;
+    }
+
+    .bid-card-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .bid-card-content {
+      padding: 24px;
+    }
+
+    .bid-card h2 {
+      margin: 0 0 8px;
+      color: var(--navy-dark);
+      font-family: var(--heading-font);
+      font-size: 28px;
+    }
+
+    .bid-description {
+      color: var(--taupe-dark);
+      margin: 0 0 20px;
+    }
+
+    .bid-price-label {
+      font-size: 13px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: var(--taupe);
+    }
+
+    .bid-price {
+      color: var(--orange);
+      font-family: var(--heading-font);
+      font-size: 34px;
+      font-weight: 700;
+      line-height: 1.1;
+      margin: 3px 0 16px;
+    }
+
+    .bid-meta {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 12px 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 18px;
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--taupe-dark);
+    }
+
+    .bid-form {
+      display: flex;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .bid-form input {
+      min-width: 0;
+      flex: 1;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 12px 14px;
+      background: var(--cream);
+      color: var(--text);
+    }
+
+    .bid-form button {
+      border: 0;
+      border-radius: 14px;
+      padding: 12px 18px;
+      background: var(--orange);
+      color: var(--white);
+      font-weight: 800;
+    }
+
+    .bid-form button:hover {
+      background: var(--orange-dark);
+    }
+
+    .bid-message {
+      margin-top: 12px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .empty-bids {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--taupe-dark);
+    }
+
+    .bid-login-note {
+      margin-top: 14px;
+      font-size: 14px;
+      color: var(--taupe-dark);
+    }
+
+    @media (max-width: 700px) {
+      .bid-form {
+        flex-direction: column;
+      }
+
+      .bid-form button {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <header class="site-header">
+    <a href="index.html" class="logo">Pompkin</a>
+
+    <nav class="main-nav" aria-label="Main navigation">
+      <a href="index.html">Home</a>
+      <a href="custom.html">Custom</a>
+      <a href="premade.html">Premade</a>
+      <a href="collection.html">Collection</a>
+      <a href="bids.html" class="active">Bids</a>
+      <a href="socials.html">Socials</a>
+    </nav>
+
+    <div class="account-links" data-account-links></div>
+  </header>
+
+  <main>
+    <section class="page-hero page-hero-collection">
+      <div class="page-hero-content">
+        <p class="hero-eyebrow">something special</p>
+        <h1>Art Bids</h1>
+        <p>Bid on original Pompkin artworks and take home something made with love 𐙚</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div id="bidsGrid" class="bids-grid">
+          <div class="empty-bids">
+            Loading auctions...
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div>
+        <strong>Pompkin</strong>
+        <p>art in all shapes 𐙚</p>
+      </div>
+
+      <div class="footer-links">
+        <a href="index.html">Explore</a>
+        <a href="custom.html">Custom</a>
+        <a href="premade.html">Premade</a>
+        <a href="collection.html">Collection</a>
+        <a href="bids.html">Bids</a>
+        <a href="socials.html">Socials</a>
+      </div>
+    </div>
+
+    <div class="container footer-bottom">
+      © 2026 Pompkin. All rights reserved. 𐙚 art in all shapes
+    </div>
+  </footer>
+
+  <script type="module" src="bids.js"></script>
+</body>
+</html>
