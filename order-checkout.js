@@ -5,7 +5,21 @@ const money=v=>"₱"+Math.max(0,Number(v)||0).toLocaleString("en-PH");
 let subtotal=0,shipping=0,tip=0,profile=null,session=null,addresses=[],selectedAddress=null;
 const basket=()=>{try{return JSON.parse(localStorage.getItem(BASKET_KEY)||"{}")}catch{return {}}};
 function msg(text,type="info"){const el=document.getElementById("checkoutMessage");el.hidden=!text;el.className=`checkout-message ${type}`;el.textContent=text;}
-function summary(){const total=Math.max(0,subtotal+shipping+tip);document.getElementById("checkoutSubtotal").textContent=money(subtotal);document.getElementById("checkoutShipping").textContent=shipping?money(shipping):"To be calculated";document.getElementById("checkoutTip").textContent=money(tip);document.getElementById("checkoutTotal").textContent=shipping?money(total):"To be confirmed";}
+function summary() {
+  const subtotalBeforeShipping = Math.max(0, subtotal + tip);
+
+  document.getElementById("checkoutSubtotal").textContent =
+    money(subtotal);
+
+  document.getElementById("checkoutShipping").textContent =
+    shipping ? money(shipping) : "To be calculated";
+
+  document.getElementById("checkoutTip").textContent =
+    money(tip);
+
+  document.getElementById("checkoutTotal").textContent =
+    money(subtotalBeforeShipping);
+}
 function renderItems(){const entries=Object.entries(basket()).filter(([id,q])=>products[id]&&Number(q)>0);const el=document.getElementById("checkoutItems");if(!entries.length){el.innerHTML='<p class="basket-empty">Your basket is empty. <a href="collection.html">Browse the collection</a>.</p>';document.getElementById("checkoutButton").disabled=true;return;}subtotal=entries.reduce((s,[id,q])=>s+products[id].price*Number(q),0);el.innerHTML=entries.map(([id,q])=>`<div class="dedicated-checkout-item"><div><strong>${products[id].name}</strong><span>${q} × ${money(products[id].price)}</span></div><strong>${money(products[id].price*Number(q))}</strong></div>`).join("");summary();}
 function renderAddresses() {
   const box = document.getElementById("addressChooser");
