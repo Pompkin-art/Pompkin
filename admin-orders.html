@@ -6,14 +6,18 @@
   <title>Pompkin Orders</title>
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body class="admin-page">
+
   <main class="admin-orders-shell">
+
     <header class="admin-orders-topbar">
       <div>
         <p class="section-label">private admin 𐙚</p>
         <h1>Pompkin Orders</h1>
-        <p>Review incoming orders, accept them, enter the actual J&amp;T pouch fee, and verify payments.</p>
+        <p>Manage customer orders, shipping, payments, and tracking.</p>
       </div>
+
       <div class="admin-actions">
         <a class="button button-cream" href="admin.html">Dashboard</a>
         <a class="button button-orange" href="index.html">Back to Pompkin</a>
@@ -21,23 +25,76 @@
     </header>
 
     <section class="admin-orders-toolbar">
+
       <div class="admin-order-filters">
-        <button class="admin-order-filter active" data-filter="all" type="button">All</button>
-        <button class="admin-order-filter" data-filter="pending" type="button">Pending</button>
-        <button class="admin-order-filter" data-filter="accepted" type="button">Accepted</button>
-        <button class="admin-order-filter" data-filter="paid" type="button">Paid</button>
-        <button class="admin-order-filter" data-filter="completed" type="button">Completed</button>
+        <button class="admin-order-filter active" data-filter="all" type="button">
+          All
+        </button>
+
+        <button class="admin-order-filter" data-filter="pending" type="button">
+          Pending
+        </button>
+
+        <button class="admin-order-filter" data-filter="accepted" type="button">
+          Accepted
+        </button>
+
+        <button class="admin-order-filter" data-filter="paid" type="button">
+          Paid
+        </button>
+
+        <button class="admin-order-filter" data-filter="completed" type="button">
+          Completed
+        </button>
       </div>
-      <button id="refreshOrders" class="button button-orange" type="button">Refresh</button>
+
+      <button id="refreshOrders" class="button button-orange" type="button">
+        Refresh
+      </button>
+
     </section>
 
     <div id="ordersMessage" class="admin-orders-message" hidden></div>
-    <section id="ordersList" class="admin-orders-list">
-      <div class="admin-orders-loading">Loading orders...</div>
+
+    <section class="admin-orders-table-card">
+
+      <div class="admin-orders-table-wrap">
+
+        <table class="admin-orders-table">
+
+          <thead>
+            <tr>
+              <th>Order</th>
+              <th>Customer</th>
+              <th>Items</th>
+              <th>Subtotal</th>
+              <th>Shipping</th>
+              <th>Total</th>
+              <th>Status</th>
+              <th>Payment</th>
+              <th>Tracking</th>
+              <th></th>
+            </tr>
+          </thead>
+
+          <tbody id="ordersList">
+            <tr>
+              <td colspan="10" class="admin-orders-loading">
+                Loading orders...
+              </td>
+            </tr>
+          </tbody>
+
+        </table>
+
+      </div>
+
     </section>
+
   </main>
 
   <script type="module" src="supabase.js"></script>
   <script type="module" src="admin-orders.js"></script>
+
 </body>
 </html>
