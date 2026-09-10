@@ -16,7 +16,17 @@
 <p id="checkoutMessage" class="checkout-message" hidden></p>
 </section>
 <aside class="dedicated-checkout-card order-summary"><div class="checkout-card-heading"><p class="section-label">your order 𐙚</p><h2>Order summary</h2></div><div id="checkoutItems" class="dedicated-checkout-items"></div><div class="checkout-summary-row"><span>Items</span><strong id="checkoutSubtotal">₱0</strong></div><div class="checkout-summary-row"><span>Shipping</span>
-  <div class="checkout-summary-total">
+<div class="checkout-summary-row">
+  <span>Shipping</span>
+  <strong id="checkoutShipping">To be calculated</strong>
+</div>
+
+<div class="checkout-summary-row">
+  <span>Extra support</span>
+  <strong id="checkoutTip">₱0</strong>
+</div>
+
+<div class="checkout-summary-row checkout-summary-total">
   <span>Subtotal</span>
   <strong id="checkoutTotal">₱0</strong>
 </div>
@@ -24,7 +34,5 @@
 <p class="checkout-subtotal-note">
   Shipping will be calculated and finalized later.
 </p>
-  <strong id="checkoutShipping">To be calculated</strong></div><div class="checkout-summary-row"><span>Extra support</span><strong id="checkoutTip">₱0</strong></div><button type="button" class="button button-orange checkout-place-button" id="checkoutButton">Continue with order</button><p class="checkout-small-note">Pompkin will review the order and finalize shipping before you make a payment.</p></aside>
-</div></div></main>
 <script type="module" src="order-checkout.js"></script>
 </body></html>
