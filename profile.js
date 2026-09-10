@@ -292,7 +292,7 @@ function renderAddresses() {
 
             <p>
               <strong>Mobile:</strong>
-              ${esc(address.mobile || "Not set")}
+              ${esc(address.mobile_number || "Not set")}
             </p>
 
             <p>
@@ -383,7 +383,7 @@ function openAddressEditor(address = null) {
     "Home";
 
   document.getElementById("addressMobile").value =
-    address?.mobile ||
+    address?.mobile_number ||
     profile?.mobile_number ||
     "";
 
@@ -552,7 +552,7 @@ async function saveAddress(event) {
 
   if (
     !address.recipient_name ||
-    !address.mobile ||
+    !address.mobile_number ||
     !address.full_address
   ) {
     msg(
