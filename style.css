@@ -1213,6 +1213,10 @@ body.modal-open { overflow: hidden; }
 
 /* Profile layout */
 
+[hidden] {
+  display: none !important;
+}
+
 .profile-view-card {
   display: grid;
   grid-template-columns: 180px minmax(0, 1fr);
@@ -1225,14 +1229,15 @@ body.modal-open { overflow: hidden; }
   background: var(--white);
   border: 1px solid var(--border);
   border-radius: var(--radius-large);
-  box-shadow: var(--shadow);}
+  box-shadow: var(--shadow);
+}
 
 .profile-editor,
 .address-editor {
-  display: block !important;
-  width: min(900px, 100%) !important;
-  margin: 0 auto !important;
-  padding: 38px !important;
+  display: block;
+  width: min(900px, 100%);
+  margin: 0 auto;
+  padding: 38px;
   box-sizing: border-box;
   background: var(--white);
   border: 1px solid var(--border);
@@ -1240,17 +1245,16 @@ body.modal-open { overflow: hidden; }
   box-shadow: var(--shadow);
 }
 
-.profile-editor .profile-main,
-.address-editor .profile-main,
 .profile-editor form,
 .address-editor form {
-  width: 100% !important;
+  display: block;
+  width: 100%;
 }
 
 .profile-editor .form-group,
 .address-editor .form-group {
-  display: block !important;
-  width: 100% !important;
+  display: block;
+  width: 100%;
   margin-bottom: 22px;
 }
 
@@ -1258,9 +1262,14 @@ body.modal-open { overflow: hidden; }
 .profile-editor textarea,
 .address-editor input,
 .address-editor textarea {
-  display: block !important;
-  width: 100% !important;
-  box-sizing: border-box !important;
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.profile-editor .profile-main,
+.address-editor .profile-main {
+  width: 100%;
 }
 
 @media (max-width: 700px) {
@@ -1271,7 +1280,7 @@ body.modal-open { overflow: hidden; }
 
   .profile-editor,
   .address-editor {
-    padding: 24px 20px !important;
+    padding: 24px 20px;
   }
 
   .profile-summary-grid,
@@ -1281,10 +1290,6 @@ body.modal-open { overflow: hidden; }
 
   .profile-section-heading-row {
     flex-direction: column;
-  }
-
-  .profile-section-heading-row button {
-    width: auto;
   }
 
   .profile-view-heading {
