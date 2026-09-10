@@ -1633,3 +1633,149 @@ body.modal-open { overflow: hidden; }
   cursor: not-allowed;
   transform: none;
 }
+
+/* POMPKIN ADMIN ORDERS — TABLE */
+
+.admin-orders-table-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(35,55,68,.06);
+}
+
+.admin-orders-table-wrap {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.admin-orders-table {
+  width: 100%;
+  min-width: 1050px;
+  border-collapse: collapse;
+  font-size: .92rem;
+}
+
+.admin-orders-table th {
+  padding: 14px 15px;
+  background: var(--cream-card);
+  color: var(--navy-dark);
+  font-size: .78rem;
+  font-weight: 800;
+  text-align: left;
+  text-transform: uppercase;
+  letter-spacing: .04em;
+  white-space: nowrap;
+  border-bottom: 1px solid var(--border);
+}
+
+.admin-orders-table td {
+  padding: 15px;
+  vertical-align: middle;
+  border-bottom: 1px solid var(--cream-dark);
+  color: var(--text);
+}
+
+.admin-orders-table tbody tr:last-child td {
+  border-bottom: 0;
+}
+
+.admin-orders-table tbody tr:hover {
+  background: #fffaf4;
+}
+
+.admin-orders-table .admin-orders-loading {
+  padding: 45px 20px;
+  text-align: center;
+  color: var(--taupe-dark);
+}
+
+.admin-orders-table .admin-orders-empty {
+  padding: 45px 20px;
+  text-align: center;
+  color: var(--taupe-dark);
+}
+
+.admin-orders-table .admin-order-number {
+  font-weight: 900;
+  color: var(--orange-dark);
+  white-space: nowrap;
+}
+
+.admin-orders-table .admin-order-item-row {
+  display: block;
+  padding: 2px 0;
+  border: 0;
+}
+
+.admin-orders-table .admin-order-badges {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+
+.admin-orders-table .admin-order-badges span {
+  padding: 5px 8px;
+  font-size: .74rem;
+}
+
+.admin-orders-table .admin-order-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.admin-orders-table .admin-order-control {
+  padding: 0;
+  background: transparent;
+}
+
+.admin-orders-table .admin-order-control h3,
+.admin-orders-table .admin-order-control p {
+  display: none;
+}
+
+.admin-orders-table .admin-order-inline {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: stretch;
+}
+
+.admin-orders-table .admin-order-inline input,
+.admin-orders-table .admin-order-inline select {
+  width: 100%;
+  min-width: 125px;
+  box-sizing: border-box;
+}
+
+.admin-orders-table button {
+  white-space: nowrap;
+}
+
+.admin-orders-table .admin-order-details {
+  display: block;
+}
+
+.admin-orders-table .admin-order-details > div {
+  margin-bottom: 4px;
+}
+
+@media (max-width: 900px) {
+  .admin-orders-topbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .admin-orders-toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .admin-orders-table-card {
+    border-radius: 16px;
+  }
+}
