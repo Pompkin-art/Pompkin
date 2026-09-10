@@ -1,38 +1,135 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Checkout | Pompkin</title><link rel="stylesheet" href="style.css"></head>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Checkout | Pompkin</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
 <body class="dedicated-checkout-body">
-<header class="checkout-header"><div class="container checkout-header-inner"><a href="index.html" class="logo">Pompkin</a><a href="collection.html" class="checkout-back">Back to basket</a></div></header>
-<main class="dedicated-checkout"><div class="container">
-<div class="checkout-intro"><p class="section-label">almost yours 𐙚</p><h1 class="section-title">Checkout</h1><p>Your saved information is used here so you don't have to type your address again.</p></div>
-<div class="dedicated-checkout-grid">
-<section class="dedicated-checkout-card checkout-main-card">
-<div class="checkout-card-heading"><p class="section-label">delivery details 𐙚</p><h2>Where should we send it?</h2><p>Your primary saved address is selected automatically. You can choose another saved address if you have more than one. The recipient name comes from the address you select.</p></div>
-<div id="addressChooser" class="checkout-address-chooser"></div>
-<div class="checkout-no-address" id="noAddress" hidden><strong>No complete delivery address is saved yet.</strong><p>Add one from your profile first, then come back here.</p></div>
-<div class="checkout-profile-preview" id="checkoutProfilePreview" hidden></div>
-<div class="checkout-divider"></div>
-<div class="coffee-support"><div class="coffee-copy"><p class="section-label">optional 𐙚</p><h3>Buy me a coffee?</h3><p>Optional support. Enter any amount you'd like to leave.</p></div><label class="coffee-amount"><span>₱</span><input id="tipAmount" type="number" min="0" step="1" inputmode="numeric" placeholder="" aria-label="Optional coffee support amount"></label></div>
-<p id="checkoutMessage" class="checkout-message" hidden></p>
-</section>
-<aside class="dedicated-checkout-card order-summary"><div class="checkout-card-heading"><p class="section-label">your order 𐙚</p><h2>Order summary</h2></div><div id="checkoutItems" class="dedicated-checkout-items"></div><div class="checkout-summary-row"><span>Items</span><strong id="checkoutSubtotal">₱0</strong></div><div class="checkout-summary-row"><span>Shipping</span>
-<div class="checkout-summary-row">
-  <span>Shipping</span>
-  <strong id="checkoutShipping">To be calculated</strong>
-</div>
 
-<div class="checkout-summary-row">
-  <span>Extra support</span>
-  <strong id="checkoutTip">₱0</strong>
-</div>
+<header class="checkout-header">
+  <div class="container checkout-header-inner">
+    <a href="index.html" class="logo">Pompkin</a>
+    <a href="collection.html" class="checkout-back">Back to basket</a>
+  </div>
+</header>
 
-<div class="checkout-summary-row checkout-summary-total">
-  <span>Subtotal</span>
-  <strong id="checkoutTotal">₱0</strong>
-</div>
+<main class="dedicated-checkout">
+  <div class="container">
 
-<p class="checkout-subtotal-note">
-  Shipping will be calculated and finalized later.
-</p>
+    <div class="checkout-intro">
+      <p class="section-label">almost yours 𐙚</p>
+      <h1 class="section-title">Checkout</h1>
+      <p>Your saved information is used here so you don't have to type your address again.</p>
+    </div>
+
+    <div class="dedicated-checkout-grid">
+
+      <!-- DELIVERY DETAILS -->
+      <section class="dedicated-checkout-card checkout-main-card">
+
+        <div class="checkout-card-heading">
+          <p class="section-label">delivery details 𐙚</p>
+          <h2>Where should we send it?</h2>
+          <p>
+            Your primary saved address is selected automatically.
+            You can choose another saved address if you have more than one.
+            The recipient name comes from the address you select.
+          </p>
+        </div>
+
+        <div id="addressChooser" class="checkout-address-chooser"></div>
+
+        <div class="checkout-no-address" id="noAddress" hidden>
+          <strong>No complete delivery address is saved yet.</strong>
+          <p>Add one from your profile first, then come back here.</p>
+        </div>
+
+        <div class="checkout-profile-preview" id="checkoutProfilePreview" hidden></div>
+
+        <div class="checkout-divider"></div>
+
+        <div class="coffee-support">
+          <div class="coffee-copy">
+            <p class="section-label">optional 𐙚</p>
+            <h3>Buy me a coffee?</h3>
+            <p>Optional support. Enter any amount you'd like to leave.</p>
+          </div>
+
+          <label class="coffee-amount">
+            <span>₱</span>
+            <input
+              id="tipAmount"
+              type="number"
+              min="0"
+              step="1"
+              inputmode="numeric"
+              placeholder=""
+              aria-label="Optional coffee support amount"
+            >
+          </label>
+        </div>
+
+        <p id="checkoutMessage" class="checkout-message" hidden></p>
+
+      </section>
+
+
+      <!-- ORDER SUMMARY -->
+      <aside class="dedicated-checkout-card order-summary">
+
+        <div class="checkout-card-heading">
+          <p class="section-label">your order 𐙚</p>
+          <h2>Order summary</h2>
+        </div>
+
+        <div id="checkoutItems" class="dedicated-checkout-items"></div>
+
+        <div class="checkout-summary-row">
+          <span>Items</span>
+          <strong id="checkoutSubtotal">₱0</strong>
+        </div>
+
+        <div class="checkout-summary-row">
+          <span>Shipping</span>
+          <strong id="checkoutShipping">To be calculated</strong>
+        </div>
+
+        <div class="checkout-summary-row">
+          <span>Extra support</span>
+          <strong id="checkoutTip">₱0</strong>
+        </div>
+
+        <div class="checkout-summary-row checkout-summary-total">
+          <span>Subtotal</span>
+          <strong id="checkoutTotal">₱0</strong>
+        </div>
+
+        <p class="checkout-subtotal-note">
+          Shipping will be calculated and finalized later.
+        </p>
+
+        <button
+          id="checkoutButton"
+          class="checkout-button"
+          type="button"
+        >
+          Continue with order
+        </button>
+
+        <p class="checkout-payment-note">
+          Pompkin will review the order and finalize the shipping before you make a payment.
+        </p>
+
+      </aside>
+
+    </div>
+  </div>
+</main>
+
 <script type="module" src="order-checkout.js"></script>
-</body></html>
+
+</body>
+</html>
