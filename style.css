@@ -1609,3 +1609,27 @@ body.modal-open { overflow: hidden; }
     grid-column: 2;
   }
 }
+
+.checkout-button {
+  width: 100%;
+  border: 0;
+  border-radius: 999px;
+  padding: 14px 20px;
+  background: #f47b2a;
+  color: #ffffff;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.checkout-button:hover {
+  background: #d95b1d;
+  transform: translateY(-1px);
+}
+
+.checkout-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
