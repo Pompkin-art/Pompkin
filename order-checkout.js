@@ -376,7 +376,7 @@ async function submitOrder() {
     coffee_amount: tip,
     total: null,
     status: "pending",
-    payment_status: "pending",
+    payment_status: "awaiting_payment",
     tracking_number: null
   };
 
