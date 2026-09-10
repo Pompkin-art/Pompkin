@@ -6,7 +6,6 @@ let user = null;
 let profile = null;
 let addresses = [];
 
-
 /* -----------------------------
    Helpers
 ----------------------------- */
@@ -14,15 +13,15 @@ let addresses = [];
 const esc = (value) =>
   String(value ?? "").replace(
     /[&<>'"]/g,
-    (char) => ({
-      "&": "&amp;",
-      "<": "&lt;",
-      ">": "&gt;",
-      "'": "&#39;",
-      '"': "&quot;"
-    }[char])
+    (char) =>
+      ({
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        "'": "&#39;",
+        '"': "&quot;"
+      })[char]
   );
-
 
 function msg(id, text, type = "") {
   const element = document.getElementById(id);
@@ -34,7 +33,6 @@ function msg(id, text, type = "") {
   element.hidden = !text;
 }
 
-
 function fullName() {
   return (
     user?.user_metadata?.full_name ||
@@ -43,7 +41,6 @@ function fullName() {
     "Pompkin customer"
   );
 }
-
 
 function candidate() {
   let username = (
@@ -56,7 +53,6 @@ function candidate() {
 
   return username.length >= 3 ? username : "pompkin_user";
 }
-
 
 /* -----------------------------
    Profile
@@ -99,7 +95,7 @@ async function ensureProfile() {
       full_name: fullName(),
       email: user.email || null,
       bio: "",
-      mobile: ""
+      mobile_number: ""
     })
     .select("*")
     .single();
@@ -121,7 +117,6 @@ async function ensureProfile() {
   }
 }
 
-
 /* -----------------------------
    Addresses
 ----------------------------- */
@@ -140,7 +135,6 @@ async function loadAddresses() {
 
   addresses = result.data || [];
 }
-
 
 /* -----------------------------
    Rendering
@@ -173,7 +167,6 @@ function renderAvatar() {
   }
 }
 
-
 function renderProfile() {
   const name = profile?.full_name || fullName();
 
@@ -188,15 +181,14 @@ function renderProfile() {
     profile?.username ||
     "Not set";
 
-  document.getElementById("viewName").textContent =
-    name;
+  document.getElementById("viewName").textContent = name;
 
   document.getElementById("viewBio").textContent =
     profile?.bio ||
     "No bio yet.";
 
   document.getElementById("viewPhone").textContent =
-    profile?.mobile ||
+    profile?.mobile_number ||
     "Not set";
 
   document.getElementById("profileUsername").value =
@@ -208,7 +200,7 @@ function renderProfile() {
     "";
 
   document.getElementById("profilePhone").value =
-    profile?.mobile ||
+    profile?.mobile_number ||
     "";
 
   const usernameInput =
@@ -250,7 +242,6 @@ function renderProfile() {
   renderAvatar();
 }
 
-
 function renderAddresses() {
   const list = document.getElementById("addressList");
 
@@ -281,9 +272,11 @@ function renderAddresses() {
 
               ${
                 address.is_primary
-                  ? `<span class="primary-address-badge">
-                       Primary
-                     </span>`
+                  ? `
+                    <span class="primary-address-badge">
+                      Primary
+                    </span>
+                  `
                   : ""
               }
             </div>
@@ -348,7 +341,6 @@ function renderAddresses() {
     .join("");
 }
 
-
 /* -----------------------------
    Profile editor
 ----------------------------- */
@@ -363,14 +355,12 @@ function openProfileEditor() {
   });
 }
 
-
 function closeProfileEditor() {
   document.getElementById("profileEditor").hidden = true;
   document.getElementById("profileCard").hidden = false;
 
   msg("profileMessage", "");
 }
-
 
 /* -----------------------------
    Address editor
@@ -394,7 +384,7 @@ function openAddressEditor(address = null) {
 
   document.getElementById("addressMobile").value =
     address?.mobile ||
-    profile?.mobile ||
+    profile?.mobile_number ||
     "";
 
   document.getElementById("fullAddress").value =
@@ -413,14 +403,12 @@ function openAddressEditor(address = null) {
   });
 }
 
-
 function closeAddressEditor() {
   document.getElementById("addressEditor").hidden = true;
   document.getElementById("profileCard").hidden = false;
 
   msg("addressFormMessage", "");
 }
-
 
 /* -----------------------------
    Save profile
@@ -482,7 +470,7 @@ async function saveProfile(event) {
         .value
         .trim(),
 
-      mobile: document
+      mobile_number: document
         .getElementById("profilePhone")
         .value
         .trim(),
@@ -515,7 +503,6 @@ async function saveProfile(event) {
 
   setTimeout(closeProfileEditor, 500);
 }
-
 
 /* -----------------------------
    Save address
@@ -580,7 +567,9 @@ async function saveAddress(event) {
   if (address.is_primary) {
     const result = await supabase
       .from("pompkin_addresses")
-      .update({ is_primary: false })
+      .update({
+        is_primary: false
+      })
       .eq("user_id", user.id);
 
     if (result.error) {
@@ -629,7 +618,6 @@ async function saveAddress(event) {
 
   closeAddressEditor();
 }
-
 
 /* -----------------------------
    Avatar
@@ -743,7 +731,6 @@ async function uploadAvatar(file) {
   );
 }
 
-
 async function removeAvatar() {
   const result = await supabase
     .from("profiles")
@@ -778,7 +765,6 @@ async function removeAvatar() {
     "success"
   );
 }
-
 
 /* -----------------------------
    Event listeners
@@ -866,6 +852,9 @@ function setupEventListeners() {
     );
 }
 
+/* -----------------------------
+   Address actions
+----------------------------- */
 
 async function handleAddressActions(event) {
   const id = event.target.dataset.id;
@@ -972,7 +961,6 @@ async function handleAddressActions(event) {
   }
 }
 
-
 /* -----------------------------
    Start page
 ----------------------------- */
@@ -1025,6 +1013,5 @@ async function init() {
     note.hidden = false;
   }
 }
-
 
 init();
