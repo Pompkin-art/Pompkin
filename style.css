@@ -1288,9 +1288,10 @@ body.modal-open { overflow: hidden; }
     grid-template-columns: 1fr;
   }
 
-  .profile-section-heading-row {
-    flex-direction: column;
-  }
+  .profile-section-heading-row {  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+}
 
   .profile-view-heading {
       display: flex;
