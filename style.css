@@ -1335,3 +1335,64 @@ body.modal-open { overflow: hidden; }
   padding: 42px;
   box-sizing: border-box;
 }
+/* Checkout saved address card */
+.checkout-saved-address-card {
+  margin-top: 1rem;
+  padding: 1.2rem;
+  background: var(--cream-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.checkout-saved-address-title {
+  display: flex;
+  align-items: center;
+  gap: .7rem;
+  margin-bottom: 1rem;
+}
+
+.checkout-saved-address-title > strong {
+  color: var(--navy-dark);
+  font-family: var(--heading-font);
+  font-size: 1.15rem;
+}
+
+.checkout-saved-address-card p {
+  margin: .55rem 0;
+  color: var(--taupe-dark);
+  line-height: 1.5;
+}
+
+.checkout-saved-address-card p strong {
+  color: var(--navy-dark);
+}
+
+.checkout-saved-address-card p:last-child {
+  margin-top: .85rem;
+  padding-top: .85rem;
+  border-top: 1px solid var(--border);
+  color: var(--text);
+}
+
+.checkout-saved-address-card .primary-address-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: .3rem .65rem;
+  border-radius: 999px;
+  background: var(--orange);
+  color: var(--white);
+  font-size: .75rem;
+  font-weight: 800;
+}
+
+@media (max-width: 560px) {
+  .checkout-saved-address-card {
+    padding: 1rem;
+  }
+
+  .checkout-saved-address-title {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: .4rem;
+  }
+}
