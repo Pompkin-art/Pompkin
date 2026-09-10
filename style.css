@@ -1300,3 +1300,18 @@ body.modal-open { overflow: hidden; }
     flex-direction: column;
   }
 }
+
+/* Profile editors: hidden until opened */
+.profile-editor[hidden],
+.address-editor[hidden] {
+  display: none !important;
+}
+
+.profile-editor:not([hidden]),
+.address-editor:not([hidden]) {
+  display: block;
+  width: min(900px, 100%);
+  margin: 0 auto;
+  padding: 42px;
+  box-sizing: border-box;
+}
