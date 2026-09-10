@@ -7,99 +7,187 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header class="site-header">
-    <a href="index.html" class="logo">Pompkin</a>
-    <nav class="main-nav" aria-label="Main navigation">
-      <a href="index.html">Home</a><a href="custom.html">Custom</a><a href="premade.html">Premade</a><a href="collection.html">Collection</a><a href="bids.html">Bids</a><a href="socials.html">Socials</a>
-    </nav>
-    <div class="account-links" data-account-links></div>
-  </header>
 
-  <main class="section profile-page">
-    <div class="container">
-      <div class="section-heading">
-        <p class="section-label">your pompkins 𐙚</p>
-        <h1 class="section-title">Your Profile</h1>
-        <p class="section-description">View your saved information first. Choose Edit Profile only when you want to change something.</p>
+<header class="site-header">
+  <a href="index.html" class="logo">Pompkin</a>
+  <nav class="main-nav" aria-label="Main navigation">
+    <a href="index.html">Home</a>
+    <a href="custom.html">Custom</a>
+    <a href="premade.html">Premade</a>
+    <a href="collection.html">Collection</a>
+    <a href="bids.html">Bids</a>
+    <a href="socials.html">Socials</a>
+  </nav>
+  <div class="account-links" data-account-links></div>
+</header>
+
+<main class="section profile-page">
+  <div class="container">
+
+    <div class="section-heading">
+      <p class="section-label">your pompkins 𐙚</p>
+      <h1 class="section-title">Your Profile</h1>
+      <p class="section-description">View your saved information first. Choose Edit Profile only when you want to change something.</p>
+    </div>
+
+    <!-- PROFILE VIEW -->
+    <section class="profile-view-card" id="profileCard" hidden>
+      <div class="profile-avatar-wrap">
+        <div class="profile-avatar profile-avatar-large" id="profileAvatar">P</div>
+        <label class="avatar-upload-button button button-outline" for="avatarInput">Change photo</label>
+        <input id="avatarInput" type="file" accept="image/png,image/jpeg,image/webp" hidden>
+        <button id="removeAvatar" class="text-button" type="button">Remove photo</button>
+        <p class="auth-helper">JPG, PNG, or WebP. Max 5 MB.</p>
       </div>
 
-      <section class="profile-card profile-view-card" id="profileCard" hidden>
-        <div class="profile-avatar-wrap">
-          <div class="profile-avatar profile-avatar-large" id="profileAvatar">P</div>
-          <label class="avatar-upload-button button button-outline" for="avatarInput">Change photo</label>
-          <input id="avatarInput" type="file" accept="image/png,image/jpeg,image/webp" hidden>
-          <button id="removeAvatar" class="text-button" type="button">Remove photo</button>
-          <p class="auth-helper">JPG, PNG, or WebP. Max 5 MB.</p>
+      <div class="profile-main">
+        <div class="profile-view-heading">
+          <div>
+            <h2 id="profileDisplayName">Your Pompkin account</h2>
+            <p class="profile-email" id="profileEmail"></p>
+          </div>
+          <button class="button button-orange" id="editProfileButton" type="button">Edit profile</button>
         </div>
 
-        <div class="profile-main">
-          <div class="profile-view-heading">
+        <div class="profile-details profile-summary-grid">
+          <div><span>Username</span><strong id="viewUsername">—</strong></div>
+          <div><span>Name</span><strong id="viewName">—</strong></div>
+          <div class="profile-detail-wide"><span>Bio</span><strong id="viewBio">—</strong></div>
+          <div><span>Mobile number</span><strong id="viewPhone">—</strong></div>
+        </div>
+
+        <section class="profile-subsection profile-address-section">
+          <div class="profile-section-heading-row">
             <div>
-              <h2 id="profileDisplayName">Your Pompkin account</h2>
-              <p class="profile-email" id="profileEmail"></p>
+              <p class="section-label">delivery addresses 𐙚</p>
+              <h3>Saved addresses</h3>
             </div>
-            <button class="button button-orange" id="editProfileButton" type="button">Edit profile</button>
+            <button class="button button-outline" id="addAddressButton" type="button">Add address</button>
+          </div>
+          <p class="auth-helper">Your primary address is automatically selected during checkout. You can save more than one.</p>
+          <div id="addressList" class="saved-address-list"></div>
+          <p id="addressMessage" class="auth-message" hidden></p>
+        </section>
+
+        <div class="profile-actions">
+          <a class="button button-outline" href="collection.html">Back to Collection</a>
+          <button class="button button-outline" type="button" id="profileLogout">Log Out</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- EDIT PROFILE -->
+    <section class="profile-editor" id="profileEditor" hidden>
+      <div class="profile-main">
+        <div class="profile-view-heading">
+          <div>
+            <p class="section-label">edit only what you need 𐙚</p>
+            <h2>Edit profile</h2>
+          </div>
+          <button class="button button-outline" id="cancelProfileEdit" type="button">Cancel</button>
+        </div>
+
+        <form id="profileForm">
+          <div class="form-group">
+            <label for="profileUsername">Username</label>
+            <input id="profileUsername" name="username" type="text" minlength="3" maxlength="30" pattern="[A-Za-z0-9_]+">
+            <p class="auth-helper" id="usernameCooldown">You can change your username once every 30 days.</p>
           </div>
 
-          <div class="profile-details profile-summary-grid">
-            <div><span>Username</span><strong id="viewUsername">—</strong></div>
-            <div><span>Name</span><strong id="viewName">—</strong></div>
-            <div class="profile-detail-wide"><span>Bio</span><strong id="viewBio">—</strong></div>
-            <div><span>Mobile number</span><strong id="viewPhone">—</strong></div>
+          <div class="form-group">
+            <label for="profileBio">Bio</label>
+            <textarea id="profileBio" name="bio" rows="4" maxlength="300" placeholder="Tell people a little about you."></textarea>
           </div>
 
-          <section class="profile-subsection profile-address-section">
-            <div class="profile-section-heading-row">
-              <div><p class="section-label">delivery addresses 𐙚</p><h3>Saved addresses</h3></div>
-              <button class="button button-outline" id="addAddressButton" type="button">Add address</button>
+          <div class="profile-subsection">
+            <p class="section-label">contact 𐙚</p>
+            <h3>Mobile number</h3>
+            <p class="auth-helper">Save your mobile number for contact and delivery. No verification is required.</p>
+            <input id="profilePhone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="09XXXXXXXXX">
+          </div>
+
+          <button class="button button-orange" type="submit">Save changes</button>
+          <p id="profileMessage" class="auth-message" hidden></p>
+        </form>
+      </div>
+    </section>
+
+    <!-- ADDRESS EDITOR -->
+    <section class="address-editor" id="addressEditor" hidden>
+      <div class="profile-main">
+        <div class="profile-view-heading">
+          <div>
+            <p class="section-label">delivery address 𐙚</p>
+            <h2 id="addressEditorTitle">Add address</h2>
+          </div>
+          <button class="button button-outline" id="cancelAddressEdit" type="button">Cancel</button>
+        </div>
+
+        <form id="addressForm">
+          <input id="addressId" type="hidden">
+
+          <div class="profile-form-grid">
+            <div class="form-group">
+              <label for="recipientName">Recipient name</label>
+              <input id="recipientName" placeholder="Who should receive this order?" required>
             </div>
-            <p class="auth-helper">Your primary address is automatically selected during checkout. You can save more than one.</p>
-            <div id="addressList" class="saved-address-list"></div>
-            <p id="addressMessage" class="auth-message" hidden></p>
-          </section>
-<br></br>
-          <div class="profile-actions">
-            <a class="button button-outline" href="collection.html">Back to Collection</a>
-            <button class="button button-outline" type="button" id="profileLogout">Log Out</button>
+
+            <div class="form-group">
+              <label for="addressLabel">Address label</label>
+              <input id="addressLabel" placeholder="Home, Work, etc." required>
+            </div>
           </div>
-        </div>
-      </section>
-<br></br>
 
-      <section class="profile-card profile-editor-card" id="profileEditor" hidden>
-        <div class="profile-main">
-          <div class="profile-view-heading"><div><p class="section-label">edit only what you need 𐙚</p><h2>Edit profile</h2></div><button class="button button-outline" id="cancelProfileEdit" type="button">Cancel</button></div>
-          <form id="profileForm">
-            <div class="form-group"><label for="profileUsername">Username</label><input id="profileUsername" name="username" type="text" minlength="3" maxlength="30" pattern="[A-Za-z0-9_]+"><p class="auth-helper" id="usernameCooldown">You can change your username once every 30 days.</p></div>
-            <div class="form-group"><label for="profileBio">Bio</label><textarea id="profileBio" name="bio" rows="4" maxlength="300" placeholder="Tell people a little about you."></textarea></div>
-            <div class="profile-subsection"><p class="section-label">contact 𐙚</p><h3>Mobile number</h3><p class="auth-helper">Save your mobile number for contact and delivery. No verification is required.</p><input id="profilePhone" name="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="09XXXXXXXXX"></div>
-            <button class="button button-orange" type="submit">Save changes</button>
-            <p id="profileMessage" class="auth-message" hidden></p>
-          </form>
-        </div>
-      </section>
+          <div class="form-group">
+            <label for="addressMobile">Mobile number</label>
+            <input id="addressMobile" type="tel" inputmode="tel" placeholder="09XXXXXXXXX" required>
+          </div>
 
-      <section class="profile-card address-editor-card" id="addressEditor" hidden>
-        <div class="profile-main">
-          <div class="profile-view-heading"><div><p class="section-label">delivery address 𐙚</p><h2 id="addressEditorTitle">Add address</h2></div><button class="button button-outline" id="cancelAddressEdit" type="button">Cancel</button></div>
-          <form id="addressForm">
-            <input id="addressId" type="hidden">
-            <div class="profile-form-grid"><div class="form-group"><label for="recipientName">Recipient name</label><input id="recipientName" placeholder="Who should receive this order?" required></div><div class="form-group"><label for="addressLabel">Address label</label><input id="addressLabel" placeholder="Home, Work, etc." required></div></div>
-            <div class="form-group"><label for="addressMobile">Mobile number</label><input id="addressMobile" type="tel" inputmode="tel" placeholder="09XXXXXXXXX" required></div>
-            <div class="form-group"><label for="fullAddress">Full shipping address</label><textarea id="fullAddress" rows="5" placeholder="House / unit, street, barangay, city / municipality, province, postal code, country" required></textarea></div>
-            <label class="address-primary-check"><input id="isPrimary" type="checkbox"> Make this my primary address</label>
-            <button class="button button-orange" type="submit">Save address</button>
-            <p id="addressFormMessage" class="auth-message" hidden></p>
-          </form>
-        </div>
-      </section>
+          <div class="form-group">
+            <label for="fullAddress">Full shipping address</label>
+            <textarea id="fullAddress" rows="5" placeholder="House / unit, street, barangay, city / municipality, province, postal code, country" required></textarea>
+          </div>
 
-      <div class="profile-note" id="profileNote" hidden></div>
+          <label class="address-primary-check">
+            <input id="isPrimary" type="checkbox">
+            Make this my primary address
+          </label>
+
+          <button class="button button-orange" type="submit">Save address</button>
+          <p id="addressFormMessage" class="auth-message" hidden></p>
+        </form>
+      </div>
+    </section>
+
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-content">
+      <div class="footer-brand">
+        <a href="index.html" class="logo">Pompkin</a>
+        <p>art in all shapes</p>
+      </div>
+
+      <div class="footer-links">
+        <a href="index.html">Home</a>
+        <a href="custom.html">Custom</a>
+        <a href="premade.html">Premade</a>
+        <a href="collection.html">Collection</a>
+        <a href="bids.html">Bids</a>
+        <a href="socials.html">Socials</a>
+      </div>
     </div>
-  </main>
 
-  <footer class="site-footer"><div class="container"><div class="footer-content"><div class="footer-brand"><a href="index.html" class="logo">Pompkin</a><p>art in all shapes</p></div><div class="footer-links"><a href="index.html">Home</a><a href="custom.html">Custom</a><a href="premade.html">Premade</a><a href="collection.html">Collection</a><a href="bids.html">Bids</a><a href="socials.html">Socials</a></div></div><div class="footer-bottom"><p>© 2026 Pompkin. All rights reserved. 𐙚 art in all shapes</p></div></div></footer>
-  <script type="module" src="supabase.js"></script>
-  <script type="module" src="profile.js"></script>
+    <div class="footer-bottom">
+      <p>© 2026 Pompkin. All rights reserved. 𐙚 art in all shapes</p>
+    </div>
+  </div>
+</footer>
+
+<script type="module" src="supabase.js"></script>
+<script type="module" src="profile.js"></script>
+
 </body>
 </html>
