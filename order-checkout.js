@@ -252,14 +252,7 @@ function renderAddressPreview() {
           }
 
         </div>
-
-        <a
-          href="profile.html"
-          class="checkout-change-address"
-        >
-          Change address
-        </a>
-
+        
       </div>
 
       <div class="checkout-address-info">
