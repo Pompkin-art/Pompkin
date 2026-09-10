@@ -51,11 +51,17 @@ async function requireAdmin() {
     return false;
   }
 
-  const { data, error } = await supabase.rpc("is_pompkin_admin");
+  const { data, error } =
+    await supabase.rpc("is_pompkin_admin");
 
   if (error || !data) {
-    ordersList.innerHTML =
-      `<div class="admin-orders-empty">Admin access is required.</div>`;
+    ordersList.innerHTML = `
+      <tr>
+        <td colspan="10" class="admin-orders-empty">
+          Admin access is required.
+        </td>
+      </tr>
+    `;
     return false;
   }
 
@@ -63,8 +69,13 @@ async function requireAdmin() {
 }
 
 async function loadOrders() {
-  ordersList.innerHTML =
-    `<div class="admin-orders-loading">Loading orders...</div>`;
+  ordersList.innerHTML = `
+    <tr>
+      <td colspan="10" class="admin-orders-loading">
+        Loading orders...
+      </td>
+    </tr>
+  `;
 
   if (!(await requireAdmin())) return;
 
@@ -74,7 +85,6 @@ async function loadOrders() {
     .order("created_at", { ascending: false });
 
   if (error) {
-    ordersList.innerHTML = "";
     message(error.message, "error");
     return;
   }
@@ -82,20 +92,23 @@ async function loadOrders() {
   allOrders = orders || [];
 
   if (!allOrders.length) {
-    ordersList.innerHTML =
-      `<div class="admin-orders-empty">No orders yet.</div>`;
+    ordersList.innerHTML = `
+      <tr>
+        <td colspan="10" class="admin-orders-empty">
+          No orders yet.
+        </td>
+      </tr>
+    `;
     return;
   }
 
   const ids = allOrders.map(order => order.id);
 
-  const {
-    data: items,
-    error: itemsError
-  } = await supabase
-    .from("pompkin_order_items")
-    .select("*")
-    .in("order_id", ids);
+  const { data: items, error: itemsError } =
+    await supabase
+      .from("pompkin_order_items")
+      .select("*")
+      .in("order_id", ids);
 
   if (itemsError) {
     message(itemsError.message, "error");
@@ -120,8 +133,13 @@ async function loadOrders() {
 
 function render(orders) {
   if (!orders.length) {
-    ordersList.innerHTML =
-      `<div class="admin-orders-empty">No orders match this filter.</div>`;
+    ordersList.innerHTML = `
+      <tr>
+        <td colspan="10" class="admin-orders-empty">
+          No orders match this filter.
+        </td>
+      </tr>
+    `;
     return;
   }
 
@@ -130,375 +148,441 @@ function render(orders) {
       order.shipping_fee !== null &&
       order.shipping_fee !== undefined;
 
-    const itemRows = order.items.length
-      ? order.items.map(item => `
-          <div class="admin-order-item-row">
-            <span>${esc(item.product_name || "Product")}</span>
-            <span>× ${Number(item.quantity || 1)}</span>
-            <strong>${money(item.unit_price)}</strong>
-          </div>
-        `).join("")
-      : `<p>No item details found.</p>`;
+    const itemText = order.items.length
+      ? order.items.map(item =>
+          `${esc(item.product_name || "Product")} ×${Number(item.quantity || 1)}`
+        ).join("<br>")
+      : "No items";
 
-    const accepted = isAccepted(order);
+    const orderShort =
+      String(order.id).slice(0, 8).toUpperCase();
+
+    const total = shippingConfirmed
+      ? money(order.total)
+      : "—";
 
     return `
-      <article class="admin-order-card">
+      <tr class="admin-order-row">
 
-        <div class="admin-order-head">
-          <div>
-            <span class="admin-order-number">
-              Order ${esc(order.id)}
-            </span>
+        <td>
+          <strong class="admin-order-number">
+            #${orderShort}
+          </strong>
+          <small>
+            ${order.created_at
+              ? new Date(order.created_at).toLocaleDateString("en-PH")
+              : "—"}
+          </small>
+        </td>
 
-            <h2>
-              ${esc(order.recipient_name || "Customer")}
-            </h2>
+        <td>
+          <strong>${esc(order.recipient_name || "—")}</strong>
+          <small>${esc(order.customer_mobile || "—")}</small>
+        </td>
 
-            <p>
-              Placed ${
-                order.created_at
-                  ? new Date(order.created_at).toLocaleString("en-PH")
-                  : "—"
-              }
-            </p>
-          </div>
+        <td class="admin-order-items-cell">
+          ${itemText}
+        </td>
 
-          <div class="admin-order-badges">
-            <span>${esc(order.status || "pending")}</span>
-            <span>${esc(order.payment_status || "awaiting_payment")}</span>
-            <span>
-              ${
-                shippingConfirmed
-                  ? "shipping confirmed"
-                  : "shipping pending"
-              }
-            </span>
-          </div>
-        </div>
+        <td>
+          ${money(order.subtotal)}
+        </td>
 
-        <div class="admin-order-details">
+        <td>
+          ${shippingConfirmed
+            ? money(order.shipping_fee)
+            : "—"}
+        </td>
 
-          <section>
-            <h3>Items</h3>
-            <div>
-              ${itemRows}
+        <td>
+          <strong>${total}</strong>
+        </td>
+
+        <td>
+          <span class="admin-order-status-badge">
+            ${esc(order.status || "pending")}
+          </span>
+        </td>
+
+        <td>
+          <span class="admin-order-payment-badge">
+            ${esc(order.payment_status || "awaiting_payment")}
+          </span>
+        </td>
+
+        <td>
+          ${order.tracking_number
+            ? esc(order.tracking_number)
+            : "—"}
+        </td>
+
+        <td>
+          <button
+            class="button button-orange open-order"
+            data-order-id="${order.id}"
+            type="button"
+          >
+            Open
+          </button>
+        </td>
+
+      </tr>
+
+      <tr
+        id="order-details-${order.id}"
+        class="admin-order-detail-row"
+        hidden
+      >
+        <td colspan="10">
+
+          <div class="admin-order-detail">
+
+            <div class="admin-order-detail-top">
+
+              <div>
+                <p class="section-label">order details 𐙚</p>
+                <h2>Order #${orderShort}</h2>
+              </div>
+
+              <button
+                class="button button-outline close-order"
+                data-order-id="${order.id}"
+                type="button"
+              >
+                Close
+              </button>
+
             </div>
-          </section>
 
-          <section>
-            <h3>Delivery</h3>
+            <div class="admin-order-detail-grid">
 
-            <p>
-              <strong>
-                ${esc(order.recipient_name || "—")}
-              </strong>
-            </p>
+              <section>
+                <h3>Customer</h3>
 
-            <p>
-              Mobile:
-              ${esc(order.customer_mobile || "—")}
-            </p>
+                <p>
+                  <strong>
+                    ${esc(order.recipient_name || "—")}
+                  </strong>
+                </p>
 
-            <p>
-              ${esc(
-                order.shipping_address ||
-                "No shipping address saved."
-              )}
-            </p>
-          </section>
+                <p>
+                  ${esc(order.customer_mobile || "—")}
+                </p>
 
-          <section>
-            <h3>Totals</h3>
+                <p>
+                  ${esc(order.shipping_address || "—")}
+                </p>
+              </section>
 
-            <p>
-              Items:
-              ${money(order.subtotal)}
-            </p>
+              <section>
+                <h3>Items</h3>
 
-            <p>
-              Shipping:
-              ${
-                shippingConfirmed
-                  ? money(order.shipping_fee)
-                  : "To be calculated"
-              }
-            </p>
+                ${order.items.length
+                  ? order.items.map(item => `
+                    <div class="admin-detail-item">
+                      <span>
+                        ${esc(item.product_name || "Product")}
+                        ×${Number(item.quantity || 1)}
+                      </span>
+                      <strong>
+                        ${money(item.subtotal)}
+                      </strong>
+                    </div>
+                  `).join("")
+                  : "<p>No item details.</p>"
+                }
 
-            <p>
-              Extra support:
-              ${money(order.coffee_amount)}
-            </p>
+                <div class="admin-detail-total">
+                  <span>Items</span>
+                  <strong>${money(order.subtotal)}</strong>
+                </div>
 
-            <strong class="admin-order-total">
-              ${
-                shippingConfirmed
-                  ? money(order.total)
-                  : "To be confirmed"
-              }
-            </strong>
-          </section>
+                <div class="admin-detail-total">
+                  <span>Extra support</span>
+                  <strong>${money(order.coffee_amount)}</strong>
+                </div>
 
-        </div>
+                <div class="admin-detail-total">
+                  <span>Shipping</span>
+                  <strong>
+                    ${shippingConfirmed
+                      ? money(order.shipping_fee)
+                      : "To be calculated"}
+                  </strong>
+                </div>
 
-        <div class="admin-order-actions">
+                <div class="admin-detail-grand-total">
+                  <span>Total</span>
+                  <strong>
+                    ${shippingConfirmed
+                      ? money(order.total)
+                      : "To be confirmed"}
+                  </strong>
+                </div>
+              </section>
 
-          ${
-            !accepted && order.status !== "cancelled"
-              ? `
-                <section class="admin-order-control">
+              <section>
+                <h3>Shipping</h3>
 
-                  <h3>Accept order</h3>
+                <label>
+                  J&amp;T shipping fee
+                  <input
+                    class="shipping-input"
+                    data-order-id="${order.id}"
+                    type="number"
+                    min="0"
+                    step="0.01"
+                    value="${shippingConfirmed
+                      ? Number(order.shipping_fee)
+                      : ""}"
+                  >
+                </label>
 
-                  <p>
-                    The first 5 accepted orders get free shipping.
-                    From order 6 onward, enter the actual J&amp;T pouch fee.
-                  </p>
+                <button
+                  class="button button-orange save-shipping"
+                  data-order-id="${order.id}"
+                  type="button"
+                >
+                  Update fee
+                </button>
 
-                  <div class="admin-order-inline">
+                <label>
+                  Tracking number
+                  <input
+                    class="tracking-input"
+                    data-order-id="${order.id}"
+                    type="text"
+                    value="${esc(order.tracking_number || "")}"
+                    placeholder="J&T waybill number"
+                  >
+                </label>
 
-                    <input
-                      class="shipping-input"
-                      data-order-id="${order.id}"
-                      type="number"
-                      min="0"
-                      step="0.01"
-                      placeholder="J&T fee"
-                    >
+                <button
+                  class="button button-orange save-tracking"
+                  data-order-id="${order.id}"
+                  type="button"
+                >
+                  Save tracking
+                </button>
+              </section>
+
+              <section>
+                <h3>Status</h3>
+
+                <label>
+                  Order status
+                  <select
+                    class="order-status"
+                    data-order-id="${order.id}"
+                  >
+                    ${[
+                      "pending",
+                      "processing",
+                      "shipped",
+                      "completed",
+                      "cancelled"
+                    ].map(status => `
+                      <option
+                        value="${status}"
+                        ${order.status === status ? "selected" : ""}
+                      >
+                        ${status}
+                      </option>
+                    `).join("")}
+                  </select>
+                </label>
+
+                <button
+                  class="button button-orange save-order-status"
+                  data-order-id="${order.id}"
+                  type="button"
+                >
+                  Save status
+                </button>
+
+                <label>
+                  Payment status
+                  <select
+                    class="payment-status"
+                    data-order-id="${order.id}"
+                  >
+                    ${[
+                      "awaiting_payment",
+                      "submitted",
+                      "paid",
+                      "failed",
+                      "refunded"
+                    ].map(status => `
+                      <option
+                        value="${status}"
+                        ${order.payment_status === status ? "selected" : ""}
+                      >
+                        ${status}
+                      </option>
+                    `).join("")}
+                  </select>
+                </label>
+
+                <button
+                  class="button button-orange save-payment"
+                  data-order-id="${order.id}"
+                  type="button"
+                >
+                  Save payment
+                </button>
+              </section>
+
+            </div>
+
+            ${
+              order.status === "pending"
+                ? `
+                  <div class="admin-order-accept-bar">
+
+                    <div>
+                      <strong>Accept this order</strong>
+                      <p>
+                        The first 5 accepted orders receive free shipping.
+                        After that, enter the actual J&amp;T pouch fee.
+                      </p>
+                    </div>
 
                     <button
                       class="button button-orange accept-order"
                       data-order-id="${order.id}"
                       type="button"
                     >
-                      Accept order
+                      Accept Order
                     </button>
 
                   </div>
-
-                </section>
-              `
-              : `
-                <section class="admin-order-control">
-
-                  <h3>J&amp;T shipping</h3>
-
-                  <div class="admin-order-inline">
-
-                    <input
-                      class="shipping-input"
-                      data-order-id="${order.id}"
-                      type="number"
-                      min="0"
-                      step="0.01"
-                      value="${
-                        shippingConfirmed
-                          ? Number(order.shipping_fee)
-                          : 0
-                      }"
-                    >
-
-                    <button
-                      class="button button-orange save-shipping"
-                      data-order-id="${order.id}"
-                      type="button"
-                    >
-                      Update fee
-                    </button>
-
-                  </div>
-
-                </section>
-              `
-          }
-
-          <section class="admin-order-control">
-
-            <h3>J&amp;T tracking</h3>
-
-            <div class="admin-order-inline">
-
-              <input
-                class="tracking-input"
-                data-order-id="${order.id}"
-                type="text"
-                value="${esc(order.tracking_number || "")}"
-                placeholder="J&T tracking number"
-              >
-
-              <button
-                class="button button-orange save-tracking"
-                data-order-id="${order.id}"
-                type="button"
-              >
-                Save tracking
-              </button>
-
-            </div>
-
-            ${
-              order.tracking_number
-                ? `<p class="auth-helper">
-                    Tracking link is ready for the customer.
-                  </p>`
+                `
                 : ""
             }
 
-          </section>
+          </div>
 
-          <section class="admin-order-control">
-
-            <h3>Order status</h3>
-
-            <div class="admin-order-inline">
-
-              <select
-                class="order-status"
-                data-order-id="${order.id}"
-              >
-                ${
-                  [
-                    "pending",
-                    "processing",
-                    "shipped",
-                    "completed",
-                    "cancelled"
-                  ]
-                    .map(status => `
-                      <option
-                        value="${status}"
-                        ${
-                          order.status === status
-                            ? "selected"
-                            : ""
-                        }
-                      >
-                        ${status}
-                      </option>
-                    `)
-                    .join("")
-                }
-              </select>
-
-              <button
-                class="button button-orange save-order-status"
-                data-order-id="${order.id}"
-                type="button"
-              >
-                Save
-              </button>
-
-            </div>
-
-          </section>
-
-          <section class="admin-order-control">
-
-            <h3>Payment</h3>
-
-            <p>
-              Current status:
-              <strong>
-                ${esc(order.payment_status || "awaiting_payment")}
-              </strong>
-            </p>
-
-            <div class="admin-order-inline">
-
-              <select
-                class="payment-status"
-                data-order-id="${order.id}"
-              >
-                ${
-                  [
-                    "unpaid",
-                    "awaiting_payment",
-                    "submitted",
-                    "paid",
-                    "failed",
-                    "refunded",
-                    "cancelled"
-                  ]
-                    .map(status => `
-                      <option
-                        value="${status}"
-                        ${
-                          order.payment_status === status
-                            ? "selected"
-                            : ""
-                        }
-                      >
-                        ${status}
-                      </option>
-                    `)
-                    .join("")
-                }
-              </select>
-
-              <button
-                class="button button-orange save-payment"
-                data-order-id="${order.id}"
-                type="button"
-              >
-                Save
-              </button>
-
-            </div>
-
-          </section>
-
-        </div>
-
-      </article>
+        </td>
+      </tr>
     `;
   }).join("");
 
   bindActions();
 }
 
-function getShippingFeeForAcceptance(orderId) {
+function bindActions() {
+
+  document.querySelectorAll(".open-order")
+    .forEach(button => {
+      button.addEventListener("click", () => {
+
+        const id = button.dataset.orderId;
+        const row = document.getElementById(
+          `order-details-${id}`
+        );
+
+        if (row) row.hidden = false;
+
+        button.textContent = "Opened";
+        button.disabled = true;
+      });
+    });
+
+  document.querySelectorAll(".close-order")
+    .forEach(button => {
+      button.addEventListener("click", () => {
+
+        const id = button.dataset.orderId;
+        const row = document.getElementById(
+          `order-details-${id}`
+        );
+
+        if (row) row.hidden = true;
+
+        const openButton = document.querySelector(
+          `.open-order[data-order-id="${id}"]`
+        );
+
+        if (openButton) {
+          openButton.textContent = "Open";
+          openButton.disabled = false;
+        }
+      });
+    });
+
+  document.querySelectorAll(".accept-order")
+    .forEach(button => {
+      button.addEventListener("click", () =>
+        acceptOrder(button.dataset.orderId)
+      );
+    });
+
+  document.querySelectorAll(".save-shipping")
+    .forEach(button => {
+      button.addEventListener("click", () =>
+        updateShipping(button.dataset.orderId)
+      );
+    });
+
+  document.querySelectorAll(".save-tracking")
+    .forEach(button => {
+      button.addEventListener("click", () =>
+        saveTracking(button.dataset.orderId)
+      );
+    });
+
+  document.querySelectorAll(".save-order-status")
+    .forEach(button => {
+      button.addEventListener("click", () =>
+        saveOrderStatus(button.dataset.orderId)
+      );
+    });
+
+  document.querySelectorAll(".save-payment")
+    .forEach(button => {
+      button.addEventListener("click", () =>
+        savePaymentStatus(button.dataset.orderId)
+      );
+    });
+}
+
+function getAcceptanceShipping(orderId) {
+
   const acceptedCount = allOrders.filter(order =>
     order.id !== orderId &&
     isAccepted(order)
   ).length;
 
-  const input = document.querySelector(
-    `.shipping-input[data-order-id="${orderId}"]`
-  );
-
-  const raw = input?.value.trim() || "";
-
   if (acceptedCount < 5) {
     return 0;
   }
 
-  if (raw === "") {
+  const input = document.querySelector(
+    `.shipping-input[data-order-id="${orderId}"]`
+  );
+
+  const value = Number(input?.value);
+
+  if (!Number.isFinite(value) || value < 0) {
     message(
-      "Enter the actual J&T pouch fee for this order.",
+      "Enter the actual J&T shipping fee.",
       "error"
     );
     return null;
   }
 
-  const fee = Number(raw);
-
-  if (!Number.isFinite(fee) || fee < 0) {
-    message(
-      "Enter a valid J&T shipping fee.",
-      "error"
-    );
-    return null;
-  }
-
-  return fee;
+  return value;
 }
 
 async function acceptOrder(orderId) {
-  const fee = getShippingFeeForAcceptance(orderId);
+
+  const fee = getAcceptanceShipping(orderId);
 
   if (fee === null) return;
 
-  const order = allOrders.find(item => item.id === orderId);
+  const order = allOrders.find(
+    item => item.id === orderId
+  );
 
   if (!order) return;
 
@@ -506,12 +590,6 @@ async function acceptOrder(orderId) {
     Number(order.subtotal || 0) +
     fee +
     Number(order.coffee_amount || 0);
-
-  const button = document.querySelector(
-    `.accept-order[data-order-id="${orderId}"]`
-  );
-
-  if (button) button.disabled = true;
 
   const { error } = await supabase
     .from("pompkin_orders")
@@ -523,7 +601,6 @@ async function acceptOrder(orderId) {
     .eq("id", orderId);
 
   if (error) {
-    if (button) button.disabled = false;
     message(error.message, "error");
     return;
   }
@@ -531,7 +608,7 @@ async function acceptOrder(orderId) {
   message(
     fee === 0
       ? "Order accepted with free shipping."
-      : "Order accepted and shipping fee saved.",
+      : "Order accepted and shipping saved.",
     "success"
   );
 
@@ -539,6 +616,7 @@ async function acceptOrder(orderId) {
 }
 
 async function updateShipping(orderId) {
+
   const input = document.querySelector(
     `.shipping-input[data-order-id="${orderId}"]`
   );
@@ -553,7 +631,9 @@ async function updateShipping(orderId) {
     return;
   }
 
-  const order = allOrders.find(item => item.id === orderId);
+  const order = allOrders.find(
+    item => item.id === orderId
+  );
 
   if (!order) return;
 
@@ -576,7 +656,7 @@ async function updateShipping(orderId) {
   }
 
   message(
-    "Shipping fee and final total updated.",
+    "Shipping fee and total updated.",
     "success"
   );
 
@@ -584,11 +664,13 @@ async function updateShipping(orderId) {
 }
 
 async function saveTracking(orderId) {
+
   const input = document.querySelector(
     `.tracking-input[data-order-id="${orderId}"]`
   );
 
-  const tracking = input?.value.trim() || null;
+  const tracking =
+    input?.value.trim() || null;
 
   const { error } = await supabase
     .from("pompkin_orders")
@@ -603,7 +685,7 @@ async function saveTracking(orderId) {
   }
 
   message(
-    "J&T tracking information saved.",
+    "Tracking number saved.",
     "success"
   );
 
@@ -611,6 +693,7 @@ async function saveTracking(orderId) {
 }
 
 async function saveOrderStatus(orderId) {
+
   const select = document.querySelector(
     `.order-status[data-order-id="${orderId}"]`
   );
@@ -638,6 +721,7 @@ async function saveOrderStatus(orderId) {
 }
 
 async function savePaymentStatus(orderId) {
+
   const select = document.querySelector(
     `.payment-status[data-order-id="${orderId}"]`
   );
@@ -664,53 +748,8 @@ async function savePaymentStatus(orderId) {
   await loadOrders();
 }
 
-function bindActions() {
-
-  document
-    .querySelectorAll(".accept-order")
-    .forEach(button => {
-      button.addEventListener("click", () =>
-        acceptOrder(button.dataset.orderId)
-      );
-    });
-
-  document
-    .querySelectorAll(".save-shipping")
-    .forEach(button => {
-      button.addEventListener("click", () =>
-        updateShipping(button.dataset.orderId)
-      );
-    });
-
-  document
-    .querySelectorAll(".save-tracking")
-    .forEach(button => {
-      button.addEventListener("click", () =>
-        saveTracking(button.dataset.orderId)
-      );
-    });
-
-  document
-    .querySelectorAll(".save-order-status")
-    .forEach(button => {
-      button.addEventListener("click", () =>
-        saveOrderStatus(button.dataset.orderId)
-      );
-    });
-
-  document
-    .querySelectorAll(".save-payment")
-    .forEach(button => {
-      button.addEventListener("click", () =>
-        savePaymentStatus(button.dataset.orderId)
-      );
-    });
-}
-
-document
-  .querySelectorAll(".admin-order-filter")
+document.querySelectorAll(".admin-order-filter")
   .forEach(button => {
-
     button.addEventListener("click", () => {
 
       document
@@ -727,10 +766,9 @@ document
         allOrders.filter(filterMatches)
       );
     });
-
   });
 
-refreshButton.addEventListener(
+refreshButton?.addEventListener(
   "click",
   loadOrders
 );
