@@ -6,21 +6,31 @@
   <title>Admin | Pompkin</title>
   <link rel="stylesheet" href="style.css">
 </head>
+
 <body class="admin-body">
+
   <header class="admin-header">
     <div class="container admin-header-inner">
       <a href="index.html" class="logo">Pompkin</a>
+
       <div class="admin-header-actions">
         <span class="admin-label">Admin</span>
         <a href="index.html" class="admin-view-site">View site</a>
-        <button id="adminLogout" class="button button-outline" type="button">Log Out</button>
+        <button id="adminLogout" class="button button-outline" type="button">
+          Log Out
+        </button>
       </div>
     </div>
-  <div class="admin-header-links"><a class="button button-orange" href="admin-orders.html">Orders</a><a class="button button-orange" href="admin-bids.html">Bids</a></div>
+
+    <div class="admin-header-links">
+      <a class="button button-orange" href="admin-orders.html">Orders</a>
+      <a class="button button-orange" href="admin-bids.html">Bids</a>
+    </div>
   </header>
 
   <main class="admin-main">
     <div class="container">
+
       <div id="adminLoading" class="admin-state">
         <p>Checking your admin access…</p>
       </div>
@@ -29,153 +39,62 @@
         <p class="section-label">private area 𐙚</p>
         <h1>Admin access only</h1>
         <p>This page is only available to the Pompkin admin account.</p>
-        <a href="index.html" class="button button-orange">Back to Pompkin</a>
+        <a href="index.html" class="button button-orange">
+          Back to Pompkin
+        </a>
       </div>
 
       <div id="adminApp" hidden>
+
         <div class="admin-title-row">
           <div>
-            <p class="section-label">your dashboard 𐙚</p>
+            <p class="section-label">private admin 𐙚</p>
             <h1>Manage Pompkin</h1>
-            <p>Add products, upload pictures, manage prices and weights, and review customer reviews before they go public.</p>
+            <p>
+              Keep orders and customer requests organized in one place.
+            </p>
           </div>
         </div>
 
-        <div class="admin-tabs" role="tablist">
-          <button class="admin-tab active" data-tab="products" type="button">Products</button>
-          <button class="admin-tab" data-tab="reviews" type="button">Reviews <span id="pendingReviewCount" class="admin-count">0</span></button>
+        <div class="admin-card">
+          <div class="admin-panel-heading">
+            <div>
+              <p class="section-label">orders 𐙚</p>
+              <h2>Customer Orders</h2>
+              <p>
+                Review incoming orders, accept them, add J&amp;T shipping fees,
+                update tracking, and manage payment status.
+              </p>
+            </div>
+
+            <a href="admin-orders.html" class="button button-orange">
+              Open Orders
+            </a>
+          </div>
         </div>
 
-        <section id="adminProductsTab" class="admin-tab-panel">
+        <div class="admin-card">
           <div class="admin-panel-heading">
             <div>
-              <p class="section-label">shop 𐙚</p>
-              <h2>Products</h2>
-            </div>
-            <button id="newProductButton" class="button button-orange" type="button">Add product</button>
-          </div>
-
-          <div id="productFormWrap" class="admin-card" hidden>
-            <div class="admin-form-heading">
-              <div>
-                <p class="section-label">product editor 𐙚</p>
-                <h3 id="productFormTitle">Add product</h3>
-              </div>
-              <button id="cancelProductButton" class="modal-close" type="button" aria-label="Close product editor">×</button>
+              <p class="section-label">custom work 𐙚</p>
+              <h2>Bids</h2>
+              <p>
+                Review custom project requests and manage bids when this section
+                is ready.
+              </p>
             </div>
 
-            <form id="productForm" class="admin-form">
-              <input id="productId" type="hidden">
-
-              <div class="admin-form-grid">
-                <label>
-                  Product name
-                  <input id="productName" required>
-                </label>
-                <label>
-                  Author
-                  <input id="productAuthor" required>
-                </label>
-                <label>
-                  Category
-                  <input id="productCategory" required>
-                </label>
-                <label>
-                  Price (₱)
-                  <input id="productPrice" type="number" min="0" step="1" required>
-                </label>
-                <label>
-                  Weight (grams)
-                  <input id="productWeight" type="number" min="0" step="1" required>
-                </label>
-                <label>
-                  Stock
-                  <input id="productStock" type="number" min="0" step="1" value="0" required>
-                </label>
-                <label>
-                  Sold count
-                  <input id="productSold" type="number" min="0" step="1" value="0" required>
-                </label>
-                <label>
-                  Status
-                  <select id="productStatus">
-                    <option value="available">Available</option>
-                    <option value="sold_out">Sold out</option>
-                    <option value="hidden">Hidden</option>
-                  </select>
-                </label>
-                <label class="admin-full">
-                  Keywords
-                  <input id="productKeywords" placeholder="keychain, acrylic, album">
-                </label>
-                <label class="admin-full">
-                  Description
-                  <textarea id="productDescription" rows="5"></textarea>
-                </label>
-                <label class="admin-full">
-                  Product picture
-                  <input id="productImage" type="file" accept="image/png,image/jpeg,image/webp">
-                  <small>Upload a new picture when adding or editing. The old picture stays unless replaced.</small>
-                </label>
-              </div>
-
-              <div id="productImagePreview" class="admin-image-preview" hidden></div>
-
-              <div class="admin-form-actions">
-                <button id="saveProductButton" class="button button-orange" type="submit">Save product</button>
-                <button id="cancelProductButton2" class="button button-outline" type="button">Cancel</button>
-              </div>
-              <p id="productFormMessage" class="admin-form-message" aria-live="polite"></p>
-            </form>
+            <a href="admin-bids.html" class="button button-orange">
+              Open Bids
+            </a>
           </div>
+        </div>
 
-          <div class="admin-card admin-table-card">
-            <div id="productsTable" class="admin-table-wrap"></div>
-          </div>
-        </section>
-
-        <section id="adminReviewsTab" class="admin-tab-panel" hidden>
-          <div class="admin-panel-heading">
-            <div>
-              <p class="section-label">moderation 𐙚</p>
-              <h2>Reviews</h2>
-              <p>Reviews stay private until you approve them.</p>
-            </div>
-          </div>
-          <div id="reviewsList" class="admin-review-list"></div>
-        </section>
       </div>
     </div>
-  
-      <section class="admin-section" id="admin-vouchers">
-        <div class="admin-section-heading">
-          <div>
-            <p class="section-label">checkout 𐙚</p>
-            <h2>Vouchers</h2>
-            <p>Create private voucher codes that customers can enter during checkout.</p>
-          </div>
-        </div>
-        <form id="voucherForm" class="admin-form">
-          <input id="voucherId" type="hidden">
-          <label><span>Code</span><input id="voucherCode" type="text" placeholder="POMPKIN10" required></label>
-          <label><span>Discount type</span>
-            <select id="voucherType">
-              <option value="fixed">Fixed amount</option>
-              <option value="percent">Percentage</option>
-            </select>
-          </label>
-          <label><span>Discount value</span><input id="voucherValue" type="number" min="0" step="0.01" required></label>
-          <label><span>Minimum subtotal</span><input id="voucherMinimum" type="number" min="0" step="0.01" value="0"></label>
-          <label><span>Usage limit (optional)</span><input id="voucherLimit" type="number" min="1" step="1"></label>
-          <label><span>Expires (optional)</span><input id="voucherExpires" type="datetime-local"></label>
-          <label class="admin-checkbox"><input id="voucherActive" type="checkbox" checked> <span>Active</span></label>
-          <button class="button button-orange" type="submit">Save voucher</button>
-        </form>
-        <div id="voucherList" class="admin-list"></div>
-      </section>
-
-</main>
+  </main>
 
   <script type="module" src="admin.js"></script>
+
 </body>
 </html>
