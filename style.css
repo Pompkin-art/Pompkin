@@ -1270,3 +1270,20 @@ body.modal-open { overflow: hidden; }
   .address-editor {
     padding: 24px 20px;}
 }
+/* PROFILE FORM FIX */
+
+.profile-editor form,
+.address-editor form {
+  display: block !important;
+  width: 100% !important;
+}
+
+.profile-editor .form-group,
+.address-editor .form-group {
+  display: block !important;
+  width: 100% !important;
+  margin-bottom: 22px;}
+
+.profile-editor input, .profile-editor textarea, .address-editor input, .address-editor textarea {display: block !important; width: 100% !important; box-sizing: border-box !important;}
+
+.profile-editor .profile-main, .address-editor .profile-main {width: 100% !important;}
