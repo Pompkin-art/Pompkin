@@ -26,6 +26,12 @@ function message(text, type = "info") {
   messageBox.hidden = false;
   messageBox.className = `admin-orders-message ${type}`;
   messageBox.textContent = text;
+
+  clearTimeout(message.timer);
+
+  message.timer = setTimeout(() => {
+    messageBox.hidden = true;
+  }, 3000);
 }
 
 function isAccepted(order) {
@@ -57,7 +63,7 @@ async function requireAdmin() {
   if (error || !data) {
     ordersList.innerHTML = `
       <tr>
-        <td colspan="10" class="admin-orders-empty">
+        <td colspan="9" class="admin-orders-empty">
           Admin access is required.
         </td>
       </tr>
@@ -71,7 +77,7 @@ async function requireAdmin() {
 async function loadOrders() {
   ordersList.innerHTML = `
     <tr>
-      <td colspan="10" class="admin-orders-loading">
+      <td colspan="9" class="admin-orders-loading">
         Loading orders...
       </td>
     </tr>
@@ -94,7 +100,7 @@ async function loadOrders() {
   if (!allOrders.length) {
     ordersList.innerHTML = `
       <tr>
-        <td colspan="10" class="admin-orders-empty">
+        <td colspan="9" class="admin-orders-empty">
           No orders yet.
         </td>
       </tr>
@@ -135,7 +141,7 @@ function render(orders) {
   if (!orders.length) {
     ordersList.innerHTML = `
       <tr>
-        <td colspan="10" class="admin-orders-empty">
+        <td colspan="9" class="admin-orders-empty">
           No orders match this filter.
         </td>
       </tr>
@@ -144,6 +150,7 @@ function render(orders) {
   }
 
   ordersList.innerHTML = orders.map(order => {
+
     const shippingConfirmed =
       order.shipping_fee !== null &&
       order.shipping_fee !== undefined;
@@ -152,22 +159,16 @@ function render(orders) {
       ? order.items.map(item =>
           `${esc(item.product_name || "Product")} ×${Number(item.quantity || 1)}`
         ).join("<br>")
-      : "No items";
+      : "—";
 
     const orderShort =
       String(order.id).slice(0, 8).toUpperCase();
 
-    const total = shippingConfirmed
-      ? money(order.total)
-      : "—";
-
     return `
       <tr class="admin-order-row">
 
-        <td>
-          <strong class="admin-order-number">
-            #${orderShort}
-          </strong>
+        <td class="order-id-cell">
+          <strong>#${orderShort}</strong>
           <small>
             ${order.created_at
               ? new Date(order.created_at).toLocaleDateString("en-PH")
@@ -175,410 +176,166 @@ function render(orders) {
           </small>
         </td>
 
-        <td>
+        <td class="customer-cell">
           <strong>${esc(order.recipient_name || "—")}</strong>
           <small>${esc(order.customer_mobile || "—")}</small>
         </td>
 
-        <td class="admin-order-items-cell">
+        <td class="items-cell">
           ${itemText}
         </td>
 
-        <td>
+        <td class="money-cell">
           ${money(order.subtotal)}
         </td>
 
         <td>
-          ${shippingConfirmed
-            ? money(order.shipping_fee)
-            : "—"}
-        </td>
-
-        <td>
-          <strong>${total}</strong>
-        </td>
-
-        <td>
-          <span class="admin-order-status-badge">
-            ${esc(order.status || "pending")}
-          </span>
-        </td>
-
-        <td>
-          <span class="admin-order-payment-badge">
-            ${esc(order.payment_status || "awaiting_payment")}
-          </span>
-        </td>
-
-        <td>
-          ${order.tracking_number
-            ? esc(order.tracking_number)
-            : "—"}
-        </td>
-
-        <td>
-          <button
-            class="button button-orange open-order"
+          <input
+            class="sheet-input shipping-input"
             data-order-id="${order.id}"
-            type="button"
+            data-original="${shippingConfirmed ? Number(order.shipping_fee) : ""}"
+            type="number"
+            min="0"
+            step="0.01"
+            value="${shippingConfirmed ? Number(order.shipping_fee) : ""}"
+            placeholder="—"
+            title="Press Enter to save"
           >
-            Open
-          </button>
         </td>
 
-      </tr>
+        <td class="money-cell total-cell">
+          ${shippingConfirmed
+            ? money(order.total)
+            : "—"}
+        </td>
 
-      <tr
-        id="order-details-${order.id}"
-        class="admin-order-detail-row"
-        hidden
-      >
-        <td colspan="10">
-
-          <div class="admin-order-detail">
-
-            <div class="admin-order-detail-top">
-
-              <div>
-                <p class="section-label">order details 𐙚</p>
-                <h2>Order #${orderShort}</h2>
-              </div>
-
-              <button
-                class="button button-outline close-order"
-                data-order-id="${order.id}"
-                type="button"
+        <td>
+          <select
+            class="sheet-select order-status"
+            data-order-id="${order.id}"
+            data-original="${esc(order.status || "pending")}"
+          >
+            ${[
+              "pending",
+              "processing",
+              "shipped",
+              "completed",
+              "cancelled"
+            ].map(status => `
+              <option
+                value="${status}"
+                ${order.status === status ? "selected" : ""}
               >
-                Close
-              </button>
-
-            </div>
-
-            <div class="admin-order-detail-grid">
-
-              <section>
-                <h3>Customer</h3>
-
-                <p>
-                  <strong>
-                    ${esc(order.recipient_name || "—")}
-                  </strong>
-                </p>
-
-                <p>
-                  ${esc(order.customer_mobile || "—")}
-                </p>
-
-                <p>
-                  ${esc(order.shipping_address || "—")}
-                </p>
-              </section>
-
-              <section>
-                <h3>Items</h3>
-
-                ${order.items.length
-                  ? order.items.map(item => `
-                    <div class="admin-detail-item">
-                      <span>
-                        ${esc(item.product_name || "Product")}
-                        ×${Number(item.quantity || 1)}
-                      </span>
-                      <strong>
-                        ${money(item.subtotal)}
-                      </strong>
-                    </div>
-                  `).join("")
-                  : "<p>No item details.</p>"
-                }
-
-                <div class="admin-detail-total">
-                  <span>Items</span>
-                  <strong>${money(order.subtotal)}</strong>
-                </div>
-
-                <div class="admin-detail-total">
-                  <span>Extra support</span>
-                  <strong>${money(order.coffee_amount)}</strong>
-                </div>
-
-                <div class="admin-detail-total">
-                  <span>Shipping</span>
-                  <strong>
-                    ${shippingConfirmed
-                      ? money(order.shipping_fee)
-                      : "To be calculated"}
-                  </strong>
-                </div>
-
-                <div class="admin-detail-grand-total">
-                  <span>Total</span>
-                  <strong>
-                    ${shippingConfirmed
-                      ? money(order.total)
-                      : "To be confirmed"}
-                  </strong>
-                </div>
-              </section>
-
-              <section>
-                <h3>Shipping</h3>
-
-                <label>
-                  J&amp;T shipping fee
-                  <input
-                    class="shipping-input"
-                    data-order-id="${order.id}"
-                    type="number"
-                    min="0"
-                    step="0.01"
-                    value="${shippingConfirmed
-                      ? Number(order.shipping_fee)
-                      : ""}"
-                  >
-                </label>
-
-                <button
-                  class="button button-orange save-shipping"
-                  data-order-id="${order.id}"
-                  type="button"
-                >
-                  Update fee
-                </button>
-
-                <label>
-                  Tracking number
-                  <input
-                    class="tracking-input"
-                    data-order-id="${order.id}"
-                    type="text"
-                    value="${esc(order.tracking_number || "")}"
-                    placeholder="J&T waybill number"
-                  >
-                </label>
-
-                <button
-                  class="button button-orange save-tracking"
-                  data-order-id="${order.id}"
-                  type="button"
-                >
-                  Save tracking
-                </button>
-              </section>
-
-              <section>
-                <h3>Status</h3>
-
-                <label>
-                  Order status
-                  <select
-                    class="order-status"
-                    data-order-id="${order.id}"
-                  >
-                    ${[
-                      "pending",
-                      "processing",
-                      "shipped",
-                      "completed",
-                      "cancelled"
-                    ].map(status => `
-                      <option
-                        value="${status}"
-                        ${order.status === status ? "selected" : ""}
-                      >
-                        ${status}
-                      </option>
-                    `).join("")}
-                  </select>
-                </label>
-
-                <button
-                  class="button button-orange save-order-status"
-                  data-order-id="${order.id}"
-                  type="button"
-                >
-                  Save status
-                </button>
-
-                <label>
-                  Payment status
-                  <select
-                    class="payment-status"
-                    data-order-id="${order.id}"
-                  >
-                    ${[
-                      "awaiting_payment",
-                      "submitted",
-                      "paid",
-                      "failed",
-                      "refunded"
-                    ].map(status => `
-                      <option
-                        value="${status}"
-                        ${order.payment_status === status ? "selected" : ""}
-                      >
-                        ${status}
-                      </option>
-                    `).join("")}
-                  </select>
-                </label>
-
-                <button
-                  class="button button-orange save-payment"
-                  data-order-id="${order.id}"
-                  type="button"
-                >
-                  Save payment
-                </button>
-              </section>
-
-            </div>
-
-            ${
-              order.status === "pending"
-                ? `
-                  <div class="admin-order-accept-bar">
-
-                    <div>
-                      <strong>Accept this order</strong>
-                      <p>
-                        The first 5 accepted orders receive free shipping.
-                        After that, enter the actual J&amp;T pouch fee.
-                      </p>
-                    </div>
-
-                    <button
-                      class="button button-orange accept-order"
-                      data-order-id="${order.id}"
-                      type="button"
-                    >
-                      Accept Order
-                    </button>
-
-                  </div>
-                `
-                : ""
-            }
-
-          </div>
-
+                ${status}
+              </option>
+            `).join("")}
+          </select>
         </td>
+
+        <td>
+          <select
+            class="sheet-select payment-status"
+            data-order-id="${order.id}"
+            data-original="${esc(order.payment_status || "awaiting_payment")}"
+          >
+            ${[
+              "awaiting_payment",
+              "submitted",
+              "paid",
+              "failed",
+              "refunded"
+            ].map(status => `
+              <option
+                value="${status}"
+                ${order.payment_status === status ? "selected" : ""}
+              >
+                ${status}
+              </option>
+            `).join("")}
+          </select>
+        </td>
+
+        <td>
+          <input
+            class="sheet-input tracking-input"
+            data-order-id="${order.id}"
+            type="text"
+            value="${esc(order.tracking_number || "")}"
+            placeholder="Waybill"
+            title="Press Enter to save"
+          >
+        </td>
+
       </tr>
     `;
   }).join("");
 
-  bindActions();
+  bindSheetActions();
 }
 
-function bindActions() {
+function bindSheetActions() {
 
-  document.querySelectorAll(".open-order")
-    .forEach(button => {
-      button.addEventListener("click", () => {
+  document.querySelectorAll(".shipping-input")
+    .forEach(input => {
 
-        const id = button.dataset.orderId;
-        const row = document.getElementById(
-          `order-details-${id}`
-        );
-
-        if (row) row.hidden = false;
-
-        button.textContent = "Opened";
-        button.disabled = true;
+      input.addEventListener("input", () => {
+        updateDisplayedTotal(input);
       });
-    });
 
-  document.querySelectorAll(".close-order")
-    .forEach(button => {
-      button.addEventListener("click", () => {
-
-        const id = button.dataset.orderId;
-        const row = document.getElementById(
-          `order-details-${id}`
-        );
-
-        if (row) row.hidden = true;
-
-        const openButton = document.querySelector(
-          `.open-order[data-order-id="${id}"]`
-        );
-
-        if (openButton) {
-          openButton.textContent = "Open";
-          openButton.disabled = false;
+      input.addEventListener("keydown", event => {
+        if (event.key === "Enter") {
+          event.preventDefault();
+          updateShipping(input.dataset.orderId);
+          input.blur();
         }
       });
     });
 
-  document.querySelectorAll(".accept-order")
-    .forEach(button => {
-      button.addEventListener("click", () =>
-        acceptOrder(button.dataset.orderId)
-      );
+  document.querySelectorAll(".tracking-input")
+    .forEach(input => {
+
+      input.addEventListener("keydown", event => {
+
+        if (event.key === "Enter") {
+          event.preventDefault();
+          saveTracking(input.dataset.orderId);
+          input.blur();
+        }
+
+      });
     });
 
-  document.querySelectorAll(".save-shipping")
-    .forEach(button => {
-      button.addEventListener("click", () =>
-        updateShipping(button.dataset.orderId)
-      );
+  document.querySelectorAll(".order-status")
+    .forEach(select => {
+
+      select.addEventListener("change", () => {
+        saveOrderStatus(
+          select.dataset.orderId,
+          select
+        );
+      });
+
     });
 
-  document.querySelectorAll(".save-tracking")
-    .forEach(button => {
-      button.addEventListener("click", () =>
-        saveTracking(button.dataset.orderId)
-      );
-    });
+  document.querySelectorAll(".payment-status")
+    .forEach(select => {
 
-  document.querySelectorAll(".save-order-status")
-    .forEach(button => {
-      button.addEventListener("click", () =>
-        saveOrderStatus(button.dataset.orderId)
-      );
-    });
+      select.addEventListener("change", () => {
+        savePaymentStatus(
+          select.dataset.orderId
+        );
+      });
 
-  document.querySelectorAll(".save-payment")
-    .forEach(button => {
-      button.addEventListener("click", () =>
-        savePaymentStatus(button.dataset.orderId)
-      );
     });
 }
 
-function getAcceptanceShipping(orderId) {
+function updateDisplayedTotal(input) {
 
-  const acceptedCount = allOrders.filter(order =>
-    order.id !== orderId &&
-    isAccepted(order)
-  ).length;
+  const row = input.closest("tr");
 
-  if (acceptedCount < 5) {
-    return 0;
-  }
+  if (!row) return;
 
-  const input = document.querySelector(
-    `.shipping-input[data-order-id="${orderId}"]`
-  );
-
-  const value = Number(input?.value);
-
-  if (!Number.isFinite(value) || value < 0) {
-    message(
-      "Enter the actual J&T shipping fee.",
-      "error"
-    );
-    return null;
-  }
-
-  return value;
-}
-
-async function acceptOrder(orderId) {
-
-  const fee = getAcceptanceShipping(orderId);
-
-  if (fee === null) return;
+  const orderId = input.dataset.orderId;
 
   const order = allOrders.find(
     item => item.id === orderId
@@ -586,33 +343,25 @@ async function acceptOrder(orderId) {
 
   if (!order) return;
 
+  const fee = Number(input.value);
+
+  const totalCell =
+    row.querySelector(".total-cell");
+
+  if (
+    !Number.isFinite(fee) ||
+    input.value === ""
+  ) {
+    totalCell.textContent = "—";
+    return;
+  }
+
   const total =
     Number(order.subtotal || 0) +
     fee +
     Number(order.coffee_amount || 0);
 
-  const { error } = await supabase
-    .from("pompkin_orders")
-    .update({
-      shipping_fee: fee,
-      total,
-      status: "processing"
-    })
-    .eq("id", orderId);
-
-  if (error) {
-    message(error.message, "error");
-    return;
-  }
-
-  message(
-    fee === 0
-      ? "Order accepted with free shipping."
-      : "Order accepted and shipping saved.",
-    "success"
-  );
-
-  await loadOrders();
+  totalCell.textContent = money(total);
 }
 
 async function updateShipping(orderId) {
@@ -621,7 +370,19 @@ async function updateShipping(orderId) {
     `.shipping-input[data-order-id="${orderId}"]`
   );
 
-  const fee = Number(input?.value);
+  if (!input) return;
+
+  const raw = input.value.trim();
+
+  if (raw === "") {
+    message(
+      "Enter a shipping fee first.",
+      "error"
+    );
+    return;
+  }
+
+  const fee = Number(raw);
 
   if (!Number.isFinite(fee) || fee < 0) {
     message(
@@ -655,12 +416,14 @@ async function updateShipping(orderId) {
     return;
   }
 
+  input.dataset.original = fee;
+
   message(
-    "Shipping fee and total updated.",
+    "Shipping updated.",
     "success"
   );
 
-  await loadOrders();
+  updateDisplayedTotal(input);
 }
 
 async function saveTracking(orderId) {
@@ -669,8 +432,10 @@ async function saveTracking(orderId) {
     `.tracking-input[data-order-id="${orderId}"]`
   );
 
+  if (!input) return;
+
   const tracking =
-    input?.value.trim() || null;
+    input.value.trim() || null;
 
   const { error } = await supabase
     .from("pompkin_orders")
@@ -685,39 +450,129 @@ async function saveTracking(orderId) {
   }
 
   message(
-    "Tracking number saved.",
+    "Tracking updated.",
     "success"
   );
-
-  await loadOrders();
 }
 
-async function saveOrderStatus(orderId) {
+async function saveOrderStatus(orderId, select) {
 
-  const select = document.querySelector(
-    `.order-status[data-order-id="${orderId}"]`
+  const newStatus = select.value;
+
+  const order = allOrders.find(
+    item => item.id === orderId
   );
 
-  const status = select?.value;
+  if (!order) return;
 
-  if (!status) return;
+  /*
+   * Moving into an accepted status.
+   * First 5 accepted orders receive free shipping
+   * if no shipping fee has been entered.
+   */
+  if (
+    ["processing", "shipped", "completed"].includes(newStatus) &&
+    !isAccepted(order)
+  ) {
+
+    const acceptedCount = allOrders.filter(
+      item =>
+        item.id !== orderId &&
+        isAccepted(item)
+    ).length;
+
+    const shippingInput = document.querySelector(
+      `.shipping-input[data-order-id="${orderId}"]`
+    );
+
+    const shippingValue =
+      shippingInput?.value.trim() || "";
+
+    if (
+      acceptedCount < 5 &&
+      shippingValue === ""
+    ) {
+      if (shippingInput) {
+        shippingInput.value = "0";
+        updateDisplayedTotal(shippingInput);
+      }
+    }
+
+    if (
+      acceptedCount >= 5 &&
+      shippingValue === ""
+    ) {
+      message(
+        "Enter the J&T shipping fee before accepting this order.",
+        "error"
+      );
+
+      select.value =
+        select.dataset.original || "pending";
+
+      return;
+    }
+
+    const fee = Number(
+      shippingInput?.value || 0
+    );
+
+    const total =
+      Number(order.subtotal || 0) +
+      fee +
+      Number(order.coffee_amount || 0);
+
+    const { error } = await supabase
+      .from("pompkin_orders")
+      .update({
+        status: newStatus,
+        shipping_fee: fee,
+        total
+      })
+      .eq("id", orderId);
+
+    if (error) {
+      message(error.message, "error");
+      select.value =
+        select.dataset.original || "pending";
+      return;
+    }
+
+    select.dataset.original = newStatus;
+
+    message(
+      "Order accepted and updated.",
+      "success"
+    );
+
+    await loadOrders();
+    return;
+  }
 
   const { error } = await supabase
     .from("pompkin_orders")
-    .update({ status })
+    .update({
+      status: newStatus
+    })
     .eq("id", orderId);
 
   if (error) {
     message(error.message, "error");
+
+    select.value =
+      select.dataset.original ||
+      order.status ||
+      "pending";
+
     return;
   }
+
+  select.dataset.original = newStatus;
 
   message(
     "Order status updated.",
     "success"
   );
-
-  await loadOrders();
 }
 
 async function savePaymentStatus(orderId) {
@@ -726,13 +581,15 @@ async function savePaymentStatus(orderId) {
     `.payment-status[data-order-id="${orderId}"]`
   );
 
-  const payment_status = select?.value;
+  if (!select) return;
 
-  if (!payment_status) return;
+  const payment_status = select.value;
 
   const { error } = await supabase
     .from("pompkin_orders")
-    .update({ payment_status })
+    .update({
+      payment_status
+    })
     .eq("id", orderId);
 
   if (error) {
@@ -740,16 +597,18 @@ async function savePaymentStatus(orderId) {
     return;
   }
 
+  select.dataset.original = payment_status;
+
   message(
     "Payment status updated.",
     "success"
   );
-
-  await loadOrders();
 }
 
-document.querySelectorAll(".admin-order-filter")
+document
+  .querySelectorAll(".admin-order-filter")
   .forEach(button => {
+
     button.addEventListener("click", () => {
 
       document
@@ -760,12 +619,14 @@ document.querySelectorAll(".admin-order-filter")
 
       button.classList.add("active");
 
-      activeFilter = button.dataset.filter;
+      activeFilter =
+        button.dataset.filter;
 
       render(
         allOrders.filter(filterMatches)
       );
     });
+
   });
 
 refreshButton?.addEventListener(
