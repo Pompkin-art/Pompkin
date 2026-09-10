@@ -1221,3 +1221,51 @@ body.modal-open { overflow: hidden; }
   .profile-view-heading{flex-wrap:wrap}
   .saved-address-card{flex-direction:column}
 }
+
+.profile-view-card {
+  display: grid;
+  grid-template-columns: 180px minmax(0, 1fr);
+  gap: 34px;
+  align-items: start;
+  width: min(900px, 100%);
+  margin: 0 auto;
+  padding: 38px;
+  box-sizing: border-box;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-large);
+  box-shadow: var(--shadow);
+}
+
+.profile-editor,
+.address-editor {
+  display: block;
+  width: min(900px, 100%);
+  margin: 0 auto;
+  padding: 38px;
+  box-sizing: border-box;
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-large);
+  box-shadow: var(--shadow);}
+
+.profile-editor form,
+.address-editor form {
+  width: 100%;}
+
+.profile-editor input,
+.profile-editor textarea,
+.address-editor input,
+.address-editor textarea {
+  width: 100%;
+  box-sizing: border-box;}
+
+@media (max-width: 700px) {
+  .profile-view-card {
+    grid-template-columns: 1fr;
+    padding: 24px 20px;}
+
+  .profile-editor,
+  .address-editor {
+    padding: 24px 20px;}
+}
