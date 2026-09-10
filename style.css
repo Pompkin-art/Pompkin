@@ -1211,17 +1211,7 @@ body.modal-open { overflow: hidden; }
 }
 @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Nunito:wght@400;500;600;700;800&family=Patrick+Hand&display=swap');
 
-
-/* Profile responsive layout */
-@media(max-width:700px){
-  .profile-view-card{grid-template-columns:1fr;padding:24px 20px}
-  .profile-editor-card,.address-editor-card{margin-top:24px;padding:24px 20px}
-  .profile-summary-grid,.profile-form-grid{grid-template-columns:1fr}
-  .profile-section-heading-row{flex-direction:column}
-  .profile-section-heading-row button{width:auto}
-  .profile-view-heading{flex-wrap:wrap}
-  .saved-address-card{flex-direction:column}
-}
+/* Profile layout */
 
 .profile-view-card {
   display: grid;
@@ -1235,46 +1225,25 @@ body.modal-open { overflow: hidden; }
   background: var(--white);
   border: 1px solid var(--border);
   border-radius: var(--radius-large);
-  box-shadow: var(--shadow);
-}
+  box-shadow: var(--shadow);}
 
 .profile-editor,
 .address-editor {
-  display: block;
-  width: min(900px, 100%);
-  margin: 0 auto;
-  padding: 38px;
+  display: block !important;
+  width: min(900px, 100%) !important;
+  margin: 0 auto !important;
+  padding: 38px !important;
   box-sizing: border-box;
   background: var(--white);
   border: 1px solid var(--border);
   border-radius: var(--radius-large);
-  box-shadow: var(--shadow);}
-
-.profile-editor form,
-.address-editor form {
-  width: 100%;}
-
-.profile-editor input,
-.profile-editor textarea,
-.address-editor input,
-.address-editor textarea {
-  width: 100%;
-  box-sizing: border-box;}
-
-@media (max-width: 700px) {
-  .profile-view-card {
-    grid-template-columns: 1fr;
-    padding: 24px 20px;}
-
-  .profile-editor,
-  .address-editor {
-    padding: 24px 20px;}
+  box-shadow: var(--shadow);
 }
-/* PROFILE FORM FIX */
 
+.profile-editor .profile-main,
+.address-editor .profile-main,
 .profile-editor form,
 .address-editor form {
-  display: block !important;
   width: 100% !important;
 }
 
@@ -1282,8 +1251,47 @@ body.modal-open { overflow: hidden; }
 .address-editor .form-group {
   display: block !important;
   width: 100% !important;
-  margin-bottom: 22px;}
+  margin-bottom: 22px;
+}
 
-.profile-editor input, .profile-editor textarea, .address-editor input, .address-editor textarea {display: block !important; width: 100% !important; box-sizing: border-box !important;}
+.profile-editor input,
+.profile-editor textarea,
+.address-editor input,
+.address-editor textarea {
+  display: block !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+}
 
-.profile-editor .profile-main, .address-editor .profile-main {width: 100% !important;}
+@media (max-width: 700px) {
+  .profile-view-card {
+    grid-template-columns: 1fr;
+    padding: 24px 20px;
+  }
+
+  .profile-editor,
+  .address-editor {
+    padding: 24px 20px !important;
+  }
+
+  .profile-summary-grid,
+  .profile-form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .profile-section-heading-row {
+    flex-direction: column;
+  }
+
+  .profile-section-heading-row button {
+    width: auto;
+  }
+
+  .profile-view-heading {
+    flex-wrap: wrap;
+  }
+
+  .saved-address-card {
+    flex-direction: column;
+  }
+}
