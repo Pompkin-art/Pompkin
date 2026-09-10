@@ -15,7 +15,16 @@
 <div class="coffee-support"><div class="coffee-copy"><p class="section-label">optional 𐙚</p><h3>Buy me a coffee?</h3><p>Optional support. Enter any amount you'd like to leave.</p></div><label class="coffee-amount"><span>₱</span><input id="tipAmount" type="number" min="0" step="1" inputmode="numeric" placeholder="" aria-label="Optional coffee support amount"></label></div>
 <p id="checkoutMessage" class="checkout-message" hidden></p>
 </section>
-<aside class="dedicated-checkout-card order-summary"><div class="checkout-card-heading"><p class="section-label">your order 𐙚</p><h2>Order summary</h2></div><div id="checkoutItems" class="dedicated-checkout-items"></div><div class="checkout-summary-row"><span>Items</span><strong id="checkoutSubtotal">₱0</strong></div><div class="checkout-summary-row"><span>Shipping</span><strong id="checkoutShipping">To be calculated</strong></div><div class="checkout-summary-row"><span>Extra support</span><strong id="checkoutTip">₱0</strong></div><div class="checkout-summary-total"><span>Total</span><strong id="checkoutTotal">To be confirmed</strong></div><button type="button" class="button button-orange checkout-place-button" id="checkoutButton">Continue with order</button><p class="checkout-small-note">Pompkin will review the order and finalize shipping before payment.</p></aside>
+<aside class="dedicated-checkout-card order-summary"><div class="checkout-card-heading"><p class="section-label">your order 𐙚</p><h2>Order summary</h2></div><div id="checkoutItems" class="dedicated-checkout-items"></div><div class="checkout-summary-row"><span>Items</span><strong id="checkoutSubtotal">₱0</strong></div><div class="checkout-summary-row"><span>Shipping</span>
+  <div class="checkout-summary-total">
+  <span>Subtotal</span>
+  <strong id="checkoutTotal">₱0</strong>
+</div>
+
+<p class="checkout-subtotal-note">
+  Shipping will be calculated and finalized later.
+</p>
+  <strong id="checkoutShipping">To be calculated</strong></div><div class="checkout-summary-row"><span>Extra support</span><strong id="checkoutTip">₱0</strong></div><button type="button" class="button button-orange checkout-place-button" id="checkoutButton">Continue with order</button><p class="checkout-small-note">Pompkin will review the order and finalize shipping before payment.</p></aside>
 </div></div></main>
 <script type="module" src="order-checkout.js"></script>
 </body></html>
