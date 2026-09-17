@@ -1,1 +1,175 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Premade Book Covers | Pompkin</title><link rel="stylesheet" href="style.css"></head><body><header class="site-header"><a href="index.html" class="logo">Pompkin</a><nav class="main-nav"><a href="index.html">Home</a><a href="custom.html">Custom</a><a href="premade.html" class="active">Premade</a><a href="collection.html">Collection</a><a href="bids.html">Bids</a><a href="socials.html">Socials</a></nav><div class="account-links" data-account-links></div></header><main><section class="page-hero page-hero-premade"><div class="page-hero-content"><p class="hero-eyebrow">ready for you</p><h1>Premade Book Covers</h1><p>Browse ready-made covers and request small personalization changes.</p></div></section><section class="section"><div class="container"><div class="premade-subpage-grid"><article class="premade-subpage-card"><div class="premade-card-image premade-cover">BOOK COVER<br>sample placeholder</div><div><h2>Premade Book Cover 01</h2><p>Ready-made composition with small personalization options.</p><ul class="tweak-list"><li>Hair color</li><li>Complexion</li><li>Eye color</li><li>Accessories</li><li>Minor color tweaks</li></ul><p class="custom-price">₱___</p><button class="button button-orange" type="button">Choose this cover</button></div></article><article class="premade-subpage-card"><div class="premade-card-image premade-cover">BOOK COVER<br>sample placeholder</div><div><h2>Premade Book Cover 02</h2><p>Another ready-made cover for a story that needs a little something extra.</p><ul class="tweak-list"><li>Hair color</li><li>Complexion</li><li>Eye color</li><li>Accessories</li><li>Minor color tweaks</li></ul><p class="custom-price">₱___</p><button class="button button-orange" type="button">Choose this cover</button></div></article></div><p class="premade-note"><strong>Need major changes?</strong> A custom commission may be a better fit.</p></div></section></main><footer class="site-footer"><div class="container"><div class="footer-content"><div class="footer-brand"><a href="index.html" class="logo">Pompkin</a><p>art in all shapes</p></div><div class="footer-links"><a href="index.html">Home</a><a href="custom.html">Custom</a><a href="premade.html">Premade</a><a href="collection.html">Collection</a><a href="bids.html">Bids</a><a href="socials.html">Socials</a></div></div><div class="footer-bottom"><p>© 2026 Pompkin. All rights reserved. 𐙚 art in all shapes</p></div></div></footer><script type="module" src="supabase.js"></script></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Premade Book Covers | Pompkin</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header class="site-header">
+<a href="index.html" class="logo">Pompkin</a>
+<nav class="main-nav">
+<a href="index.html">Home</a>
+<a href="custom.html">Custom</a>
+<a href="premade.html" class="active">Premade</a>
+<a href="collection.html">Collection</a>
+<a href="bids.html">Bids</a>
+<a href="socials.html">Socials</a>
+</nav>
+<div class="account-links" data-account-links></div>
+</header>
+
+<main>
+
+<section class="page-hero page-hero-premade">
+<div class="page-hero-content">
+<p class="hero-eyebrow">ready for you</p>
+<h1>Premade Book Covers</h1>
+<p>Browse ready-made covers and request small personalization changes.</p>
+</div>
+</section>
+
+<section class="section">
+<div class="container">
+
+<div class="premade-subpage-grid">
+
+<article class="premade-subpage-card">
+<div class="premade-card-image premade-cover">
+BOOK COVER<br>sample placeholder
+</div>
+<div class="premade-card-details">
+<p class="custom-price">₱___</p>
+<button class="button button-orange" type="button" onclick="openPremadeModal('Premade Book Cover 01','₱___')">Add to Cart</button>
+</div>
+</article>
+
+<article class="premade-subpage-card">
+<div class="premade-card-image premade-cover">
+BOOK COVER<br>sample placeholder
+</div>
+<div class="premade-card-details">
+<p class="custom-price">₱___</p>
+<button class="button button-orange" type="button" onclick="openPremadeModal('Premade Book Cover 02','₱___')">Add to Cart</button>
+</div>
+</article>
+
+</div>
+
+<p class="premade-note">
+<strong>Need major changes?</strong> A custom commission may be a better fit.
+</p>
+
+</div>
+</section>
+
+</main>
+
+<div class="premade-modal" id="premadeModal">
+<div class="premade-modal-overlay" onclick="closePremadeModal()"></div>
+
+<div class="premade-modal-content">
+
+<button class="premade-modal-close" type="button" onclick="closePremadeModal()">×</button>
+
+<p class="hero-eyebrow">personalize your cover</p>
+<h2 id="premadeModalTitle">Premade Book Cover</h2>
+
+<form id="premadeCustomizationForm">
+
+<input type="hidden" id="premadeSelectedCover" name="cover">
+<input type="hidden" id="premadeSelectedPrice" name="price">
+
+<div class="premade-form-group">
+<label for="premadeColorChanges">Colors</label>
+<textarea id="premadeColorChanges" name="color_changes" rows="3" placeholder="What colors would you like changed?"></textarea>
+</div>
+
+<div class="premade-form-group">
+<label for="premadeTextChanges">Text / Typography</label>
+<textarea id="premadeTextChanges" name="text_changes" rows="3" placeholder="What would you like changed in the text or typography?"></textarea>
+</div>
+
+<div class="premade-form-group">
+<label for="premadeOtherChanges">Other Small Changes</label>
+<textarea id="premadeOtherChanges" name="other_changes" rows="3" placeholder="Any other small changes?"></textarea>
+</div>
+
+<label class="premade-checkbox">
+<input type="checkbox" id="premadeNoText" name="no_text_copy">
+<span>I want a copy without the text.</span>
+</label>
+
+<button class="button button-orange" type="submit">Submit</button>
+
+</form>
+
+</div>
+</div>
+
+<footer class="site-footer">
+<div class="container">
+<div class="footer-content">
+
+<div class="footer-brand">
+<a href="index.html" class="logo">Pompkin</a>
+<p>art in all shapes</p>
+</div>
+
+<div class="footer-links">
+<a href="index.html">Home</a>
+<a href="custom.html">Custom</a>
+<a href="premade.html">Premade</a>
+<a href="collection.html">Collection</a>
+<a href="bids.html">Bids</a>
+<a href="socials.html">Socials</a>
+</div>
+
+</div>
+
+<div class="footer-bottom">
+<p>© 2026 Pompkin. All rights reserved. 𐙚 art in all shapes</p>
+</div>
+</div>
+</footer>
+
+<script type="module" src="supabase.js"></script>
+
+<script>
+function openPremadeModal(title, price) {
+document.getElementById('premadeModalTitle').textContent = title;
+document.getElementById('premadeSelectedCover').value = title;
+document.getElementById('premadeSelectedPrice').value = price;
+document.getElementById('premadeModal').classList.add('is-open');
+}
+
+function closePremadeModal() {
+document.getElementById('premadeModal').classList.remove('is-open');
+}
+
+document.getElementById('premadeCustomizationForm').addEventListener('submit', function(e) {
+e.preventDefault();
+
+const formData = new FormData(this);
+
+const cartItem = {
+type: 'premade-book-cover',
+cover: formData.get('cover'),
+price: formData.get('price'),
+color_changes: formData.get('color_changes'),
+text_changes: formData.get('text_changes'),
+other_changes: formData.get('other_changes'),
+no_text_copy: formData.get('no_text_copy') === 'on'
+};
+
+console.log(cartItem);
+closePremadeModal();
+alert('Your premade cover has been added to your cart.');
+});
+</script>
+
+</body>
+</html>
