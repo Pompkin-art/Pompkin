@@ -38,30 +38,66 @@
 <div class="premade-subpage-grid">
 
 <article class="premade-subpage-card">
-<div class="premade-card-image premade-cover">
-BOOK COVER<br>sample placeholder
-</div>
-<div class="premade-card-details">
-<p class="custom-price">₱___</p>
-<button class="button button-orange" type="button" onclick="openPremadeModal('Premade Book Cover 01','₱___')">Add to Cart</button>
-</div>
+<div class="premade-card-image premade-cover" onclick="openPremadeModal('Premade Book Cover 01','₱___')">BOOK COVER<br>01</div>
 </article>
 
 <article class="premade-subpage-card">
-<div class="premade-card-image premade-cover">
-BOOK COVER<br>sample placeholder
-</div>
-<div class="premade-card-details">
-<p class="custom-price">₱___</p>
-<button class="button button-orange" type="button" onclick="openPremadeModal('Premade Book Cover 02','₱___')">Add to Cart</button>
-</div>
+<div class="premade-card-image premade-cover" onclick="openPremadeModal('Premade Book Cover 02','₱___')">BOOK COVER<br>02</div>
+</article>
+
+<article class="premade-subpage-card">
+<div class="premade-card-image premade-cover" onclick="openPremadeModal('Premade Book Cover 03','₱___')">BOOK COVER<br>03</div>
+</article>
+
+<article class="premade-subpage-card">
+<div class="premade-card-image premade-cover" onclick="openPremadeModal('Premade Book Cover 04','₱___')">BOOK COVER<br>04</div>
+</article>
+
+<article class="premade-subpage-card">
+<div class="premade-card-image premade-cover" onclick="openPremadeModal('Premade Book Cover 05','₱___')">BOOK COVER<br>05</div>
+</article>
+
+<article class="premade-subpage-card">
+<div class="premade-card-image premade-cover" onclick="openPremadeModal('Premade Book Cover 06','₱___')">BOOK COVER<br>06</div>
+</article>
+
+<article class="premade-subpage-card">
+<div class="premade-card-image premade-cover" onclick="openPremadeModal('Premade Book Cover 07','₱___')">BOOK COVER<br>07</div>
+</article>
+
+<article class="premade-subpage-card">
+<div class="premade-card-image premade-cover" onclick="openPremadeModal('Premade Book Cover 08','₱___')">BOOK COVER<br>08</div>
+</article>
+
+<article class="premade-subpage-card">
+<div class="premade-card-image premade-cover" onclick="openPremadeModal('Premade Book Cover 09','₱___')">BOOK COVER<br>09</div>
+</article>
+
+<article class="premade-subpage-card">
+<div class="premade-card-image premade-cover" onclick="openPremadeModal('Premade Book Cover 10','₱___')">BOOK COVER<br>10</div>
+</article>
+
+<article class="premade-subpage-card">
+<div class="premade-card-image premade-cover" onclick="openPremadeModal('Premade Book Cover 11','₱___')">BOOK COVER<br>11</div>
+</article>
+
+<article class="premade-subpage-card">
+<div class="premade-card-image premade-cover" onclick="openPremadeModal('Premade Book Cover 12','₱___')">BOOK COVER<br>12</div>
+</article>
+
+<article class="premade-subpage-card">
+<div class="premade-card-image premade-cover" onclick="openPremadeModal('Premade Book Cover 13','₱___')">BOOK COVER<br>13</div>
+</article>
+
+<article class="premade-subpage-card">
+<div class="premade-card-image premade-cover" onclick="openPremadeModal('Premade Book Cover 14','₱___')">BOOK COVER<br>14</div>
+</article>
+
+<article class="premade-subpage-card">
+<div class="premade-card-image premade-cover" onclick="openPremadeModal('Premade Book Cover 15','₱___')">BOOK COVER<br>15</div>
 </article>
 
 </div>
-
-<p class="premade-note">
-<strong>Need major changes?</strong> A custom commission may be a better fit.
-</p>
 
 </div>
 </section>
@@ -77,6 +113,18 @@ BOOK COVER<br>sample placeholder
 
 <p class="hero-eyebrow">personalize your cover</p>
 <h2 id="premadeModalTitle">Premade Book Cover</h2>
+
+<p>Ready-made composition with small personalization options.</p>
+
+<ul class="tweak-list">
+<li>Hair color</li>
+<li>Complexion</li>
+<li>Eye color</li>
+<li>Accessories</li>
+<li>Minor color tweaks</li>
+</ul>
+
+<p class="custom-price" id="premadeModalPrice">₱___</p>
 
 <form id="premadeCustomizationForm">
 
@@ -103,7 +151,7 @@ BOOK COVER<br>sample placeholder
 <span>I want a copy without the text.</span>
 </label>
 
-<button class="button button-orange" type="submit">Submit</button>
+<button class="button button-orange" type="submit">Add to Cart</button>
 
 </form>
 
@@ -141,6 +189,7 @@ BOOK COVER<br>sample placeholder
 <script>
 function openPremadeModal(title, price) {
 document.getElementById('premadeModalTitle').textContent = title;
+document.getElementById('premadeModalPrice').textContent = price;
 document.getElementById('premadeSelectedCover').value = title;
 document.getElementById('premadeSelectedPrice').value = price;
 document.getElementById('premadeModal').classList.add('is-open');
@@ -166,6 +215,7 @@ no_text_copy: formData.get('no_text_copy') === 'on'
 };
 
 console.log(cartItem);
+
 closePremadeModal();
 alert('Your premade cover has been added to your cart.');
 });
